@@ -1,4 +1,5 @@
 import { Header } from "@/features/marketing/components/header";
+import { About } from "@/features/marketing/components/sections/about";
 import { Hero } from "@/features/marketing/components/sections/hero";
 import { Portfolio } from "@/features/marketing/components/sections/portfolio";
 
@@ -8,6 +9,7 @@ export default function Home() {
       <Header />
       <Hero />
       <Portfolio />
+      <About />
     </main>
   );
 }
