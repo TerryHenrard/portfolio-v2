@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
   images: {
-    remotePatterns: [new URL("https://shadcndesign-dev-portfolio-template.vercel.app/")],
+    remotePatterns: [new URL("https://shadcndesign-dev-portfolio-template.vercel.app/**")],
   },
 };
 
