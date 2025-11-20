@@ -4,20 +4,16 @@ import Image from "next/image";
 import Link from "next/link";
 import AvailabilityPing from "../availability-ping";
 import { Handwritted } from "../handwritted";
-import { Header } from "../header";
 
 export function Hero() {
   return (
-    <div className="min-h-screen border-b">
-      <Header />
-      <div className="flex flex-col md:flex-row items-center gap-6 md:gap-12 mt-12">
+    <section className="border-b py-24">
+      <div className="flex flex-col md:flex-row items-center gap-6 md:gap-12 ">
         <div className="flex-1 flex flex-col gap-6">
           <AvailabilityPing variant={"secondary"} />
           <Handwritted className="text-3xl text-muted-foreground" />
-          <TypographyH1 className="font-medium font-mono text-5xl">
-            Your go-to AI engineer for Next.js projects
-          </TypographyH1>
-          <TypographyLead>
+          <TypographyH1>Your go-to AI engineer for Next.js projects</TypographyH1>
+          <TypographyLead className="text-lg">
             Bringing your ideas to life with clean, efficient, and scalable code. Whether it's
             building web apps, optimizing performance, or solving complex technical challenges.
           </TypographyLead>
@@ -31,9 +27,9 @@ export function Hero() {
           </div>
         </div>
         <div className="flex-1">
-          <Image src={"/images/hero.png"} alt="Hero Image" width={1024} height={1024} />
+          <Image src={"/images/hero.png"} alt="Hero Image" width={712} height={712} />
         </div>
       </div>
-    </div>
+    </section>
   );
 }

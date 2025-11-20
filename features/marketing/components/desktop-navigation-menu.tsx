@@ -11,7 +11,7 @@ import {
 import { useIsMobile } from "@/core/hooks/use-mobile";
 import Link from "next/link";
 
-const menuItems: { title: string; href: string }[] = [
+export const menuItems: { title: string; href: string }[] = [
   { title: "Projects", href: "/" },
   { title: "About Me", href: "/" },
   { title: "Blog", href: "/" },
@@ -40,7 +40,9 @@ export function DesktopNavigationMenu() {
           return (
             <NavigationMenuItem key={item.title}>
               <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <Link href={item.href}>{item.title}</Link>
+                <Link className="bg-transparent" href={item.href}>
+                  {item.title}
+                </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
           );

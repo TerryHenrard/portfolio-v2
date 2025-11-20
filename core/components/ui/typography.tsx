@@ -8,7 +8,10 @@ import { cn } from "@/core/lib/utils";
 export function TypographyH1({ className, ...props }: React.ComponentProps<"h1">) {
   return (
     <h1
-      className={cn("scroll-m-20 text-4xl font-extrabold tracking-tight text-balance", className)}
+      className={cn(
+        "scroll-m-20 tracking-tight text-balance font-medium font-mono text-5xl",
+        className
+      )}
       {...props}
     />
   );
@@ -18,7 +21,7 @@ export function TypographyH2({ className, ...props }: React.ComponentProps<"h2">
   return (
     <h2
       className={cn(
-        "mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0",
+        "font-mono scroll-m-20 pb-2 text-4xl font-medium tracking-tight transition-colors ",
         className
       )}
       {...props}

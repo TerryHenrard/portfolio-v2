@@ -18,5 +18,7 @@
     "lib": "@/core/lib",
     "hooks": "@/core/hooks"
   },
-  "registries": {}
+  "registries": {
+    "@aceternity": "https://ui.aceternity.com/registry/{name}.json"
+  }
 }
