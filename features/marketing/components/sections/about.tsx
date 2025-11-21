@@ -7,7 +7,7 @@ import Link from "next/link";
 export function About() {
   return (
     <section className="border-b py-24 flex items-center justify-center gap-16">
-      <Image src="/images/hero-variant.png" alt="About Me Image" width={712} height={712} />
+      <Image src="/images/about.png" alt="About Me Image" width={712} height={712} />
       <div className="flex flex-col items-start gap-5">
         <Badge className="tracking-widest">ABOUT</Badge>
         <TypographyH2>Developer who loves to build stuff</TypographyH2>

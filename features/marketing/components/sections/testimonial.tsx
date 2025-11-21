@@ -1,5 +1,4 @@
 import { Badge } from "@/core/components/ui/badge";
-import { Separator } from "@/core/components/ui/separator";
 import { TypographyH2 } from "@/core/components/ui/typography";
 import { TestimonialCard, type TestimonialProps } from "../../testimonial-card";
 
@@ -30,17 +29,14 @@ const testimonials: TestimonialProps[] = [
 
 export function Testimonial() {
   return (
-    <section className="border-b py-24">
+    <section className="border-b py-24 flex gap-10 flex-col">
       <div className="flex flex-col gap-5">
         <Badge className="tracking-widest">TESTIMONIAL</Badge>
-        <Separator orientation="vertical" />
         <TypographyH2>What my clients say</TypographyH2>
       </div>
-      <div className="mt-12 flex flex-col gap-8 md:flex-row md:gap-12">
-        {testimonials.map((testimonial, index) => (
-          <>
-            <TestimonialCard key={index} {...testimonial} />
-          </>
+      <div className="flex flex-col gap-8 md:flex-row md:gap-12">
+        {testimonials.map((testimonial) => (
+          <TestimonialCard key={testimonial.author.name} {...testimonial} />
         ))}
       </div>
     </section>

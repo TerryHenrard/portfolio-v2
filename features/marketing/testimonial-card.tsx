@@ -15,8 +15,8 @@ export function TestimonialCard({ quote, highlightedText, author }: TestimonialP
   const parts = quote.split(highlightedText);
 
   return (
-    <Card className="w-full bg-transparent shadow-none border-none">
-      <CardContent className="pt-6">
+    <Card className="w-full bg-transparent shadow-none border-none p-0">
+      <CardContent className="p-0">
         <div className="flex flex-col gap-8">
           <p className="text-foreground text-center text-lg leading-7 md:text-left font-mono">
             &ldquo;{parts[0]}
