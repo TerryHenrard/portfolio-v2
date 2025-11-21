@@ -21,7 +21,7 @@ export function TypographyH2({ className, ...props }: React.ComponentProps<"h2">
   return (
     <h2
       className={cn(
-        "font-mono scroll-m-20 pb-2 text-4xl font-medium tracking-tight transition-colors ",
+        "font-mono scroll-m-20 text-4xl font-medium tracking-tight transition-colors ",
         className
       )}
       {...props}
