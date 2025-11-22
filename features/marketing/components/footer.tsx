@@ -1,4 +1,4 @@
-import { Separator } from "@/core/components/ui/separator";
+import { Copyright } from "@/core/components/ui/copyright";
 import { Facebook, Instagram, Twitter } from "lucide-react";
 import Link from "next/link";
 import { Handwritted } from "./handwritted";
@@ -72,16 +72,8 @@ export function Footer() {
             </Link>
           </div>
         </div>
-        <Separator />
         <div className="flex flex-col items-center justify-between gap-12 text-center md:gap-6 lg:flex-row lg:text-left">
-          <p className="text-muted-foreground order-2 md:order-1">
-            <span>
-              Copyright {new Date().getFullYear()} ©{" "}
-              <Link className="hover:underline" target="_blank" href="https://shadcndesign.com">
-                shadcndesign.com
-              </Link>
-            </span>
-          </p>
+          <Copyright />
           <nav
             className="order-1 flex flex-col items-center gap-6 text-center md:order-2 md:flex-row md:gap-7"
             aria-label="Legal links"
