@@ -5,6 +5,8 @@ import Link from "next/link";
 import AvailabilityPing from "../availability-ping";
 import { Handwritted } from "../handwritted";
 
+import HeroImage from "@/public/images/hero.png";
+
 export function Hero() {
   return (
     <section className="border-b py-24">
@@ -27,7 +29,7 @@ export function Hero() {
           </div>
         </div>
         <div className="flex-1">
-          <Image src={"/images/hero.png"} alt="Hero Image" width={712} height={712} />
+          <Image src={HeroImage} alt="Hero Image" width={712} height={712} />
         </div>
       </div>
     </section>

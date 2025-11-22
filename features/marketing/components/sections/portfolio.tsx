@@ -1,5 +1,5 @@
-import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { Badge } from "@/core/components/ui/badge";
+import { BentoGrid, BentoGridItem } from "@/core/components/ui/bento-grid";
 import { TypographyH2, TypographyLead } from "@/core/components/ui/typography";
 import Link from "next/link";
 import { ComponentProps } from "react";
@@ -28,7 +28,7 @@ const items: (ComponentProps<typeof BentoGridItem> & { href: string })[] = [
     title: "Website + Booking System",
     description:
       "Explore the development of a website and booking system for a local car cleaning company.",
-    imageSrc: "/images/car-wash-from-home-website-project.png",
+    imageSrc: "/images/car-wash-from-home-website-project.jpg",
     imageAlt: "Booking System Project Screenshot",
     imageWidth: 846,
     imageHeight: 286,
@@ -66,16 +66,7 @@ export function Portfolio() {
             key={item.title}
             className={i === 0 || i === 3 ? "md:col-span-2" : ""}
           >
-            <BentoGridItem
-              title={item.title}
-              description={item.description}
-              imageSrc={item.imageSrc}
-              imageAlt={item.imageAlt}
-              imageWidth={item.imageWidth}
-              imageHeight={item.imageHeight}
-              secondImageSrc={item.secondImageSrc}
-              secondImageAlt={item.secondImageAlt}
-            />
+            <BentoGridItem {...item} />
           </Link>
         ))}
       </BentoGrid>

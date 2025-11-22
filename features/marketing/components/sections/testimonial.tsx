@@ -1,6 +1,6 @@
 import { Badge } from "@/core/components/ui/badge";
 import { TypographyH2 } from "@/core/components/ui/typography";
-import { TestimonialCard, type TestimonialProps } from "../../testimonial-card";
+import { TestimonialCard, type TestimonialProps } from "../testimonial-card";
 
 const testimonials: TestimonialProps[] = [
   {
