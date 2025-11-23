@@ -62,7 +62,7 @@ export function Portfolio() {
           <Link
             href={item.href}
             key={item.title}
-            className={i === 0 || i === 3 ? "md:col-span-2" : ""}
+            className={i === 0 || i === 3 ? "md:col-span-2" : "" + ""}
           >
             <BentoGridItem {...item} />
           </Link>

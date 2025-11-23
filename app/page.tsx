@@ -1,4 +1,3 @@
-import { Footer } from "@/features/marketing/components/footer";
 import { About } from "@/features/marketing/components/sections/about";
 import { Contact } from "@/features/marketing/components/sections/contact";
 import { Faq } from "@/features/marketing/components/sections/faq";
@@ -15,7 +14,6 @@ export default function Home() {
       <Testimonial />
       <Contact />
       <Faq />
-      <Footer />
     </main>
   );
 }

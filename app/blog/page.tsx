@@ -1,3 +1,3 @@
 export default function Blog() {
-  return <div>In progress...</div>;
+  return <div>Coming soon</div>;
 }

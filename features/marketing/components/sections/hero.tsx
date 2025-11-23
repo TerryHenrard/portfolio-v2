@@ -1,15 +1,15 @@
-import { Button } from "@/core/components/ui/button";
 import { TypographyH1, TypographyLead } from "@/core/components/ui/typography";
 import Image from "next/image";
-import Link from "next/link";
 import AvailabilityPing from "../availability-ping";
 import { Handwritted } from "../handwritted";
 
 import HeroImage from "@/public/images/hero-variant.png";
+import { ContactMeCta } from "../contact-me-cta";
+import { ViewProjectsCta } from "../view-projects-cta";
 
 export function Hero() {
   return (
-    <section className="border-b py-24" id="home">
+    <section className="border-b py-24 mt-17" id="hero">
       <div className="flex flex-col md:flex-row items-center gap-6 md:gap-12 ">
         <div className="flex-1 flex flex-col gap-6">
           <AvailabilityPing variant={"secondary"} />
@@ -20,12 +20,8 @@ export function Hero() {
             building web apps, optimizing performance, or solving complex technical challenges.
           </TypographyLead>
           <div className="flex gap-4">
-            <Button size={"lg"} asChild>
-              <Link href="/">Contact Me</Link>
-            </Button>
-            <Button size={"lg"} variant={"secondary"} asChild>
-              <Link href="/">View Projects</Link>
-            </Button>
+            <ContactMeCta />
+            <ViewProjectsCta />
           </div>
         </div>
         <div className="flex-1">

@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/core/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -10,6 +9,7 @@ import {
 } from "@/core/components/ui/navigation-menu";
 import { useIsMobile } from "@/core/hooks/use-mobile";
 import Link from "next/link";
+import { ContactMeCta } from "./contact-me-cta";
 
 export const menuItems: { title: string; href: string }[] = [
   { title: "Projects", href: "/#portfolio" },
@@ -30,9 +30,7 @@ export function DesktopNavigationMenu() {
             return (
               <NavigationMenuItem key={item.title}>
                 <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                  <Button variant={"outline"} asChild>
-                    <Link href={item.href}>{item.title}</Link>
-                  </Button>
+                  <ContactMeCta variant={"outline"} />
                 </NavigationMenuLink>
               </NavigationMenuItem>
             );
@@ -41,7 +39,9 @@ export function DesktopNavigationMenu() {
           return (
             <NavigationMenuItem key={item.title}>
               <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <Link href={item.href}>{item.title}</Link>
+                <Link className="bg-transparent" href={item.href}>
+                  {item.title}
+                </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
           );

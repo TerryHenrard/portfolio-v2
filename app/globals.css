@@ -1,8 +1,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+@plugin "@toolwind/corner-shape";
+@plugin "@tailwindcss/typography";
 
+@custom-variant dark (&:is(.dark *));
 
 :root {
   --radius: 0.5rem;
