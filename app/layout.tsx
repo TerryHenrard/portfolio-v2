@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Dancing_Script, Geist, Geist_Mono } from "next/font/google";
 import { PropsWithChildren } from "react";
 
+import { Header } from "@/features/marketing/components/header";
 import "./globals.css";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
@@ -20,7 +21,10 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
       <body
         className={`${geist.className} ${geistMono.variable} ${dancingScript.variable} antialiased`}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          <Header />
+          {children}
+        </Providers>
       </body>
     </html>
   );

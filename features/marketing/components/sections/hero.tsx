@@ -9,7 +9,7 @@ import HeroImage from "@/public/images/hero-variant.png";
 
 export function Hero() {
   return (
-    <section className="border-b py-24">
+    <section className="border-b py-24" id="home">
       <div className="flex flex-col md:flex-row items-center gap-6 md:gap-12 ">
         <div className="flex-1 flex flex-col gap-6">
           <AvailabilityPing variant={"secondary"} />

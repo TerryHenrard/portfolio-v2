@@ -12,15 +12,16 @@ import { useIsMobile } from "@/core/hooks/use-mobile";
 import Link from "next/link";
 
 export const menuItems: { title: string; href: string }[] = [
-  { title: "Projects", href: "/" },
-  { title: "About Me", href: "/" },
-  { title: "Blog", href: "/" },
-  { title: "FAQ", href: "/" },
-  { title: "Contact Me", href: "/" },
+  { title: "Projects", href: "/#portfolio" },
+  { title: "About Me", href: "/#about" },
+  { title: "Blog", href: "/blog" },
+  { title: "FAQ", href: "/#faq" },
+  { title: "Contact Me", href: "/#contact" },
 ];
 
 export function DesktopNavigationMenu() {
   const isMobile = useIsMobile();
+
   return (
     <NavigationMenu viewport={isMobile}>
       <NavigationMenuList>
@@ -40,9 +41,7 @@ export function DesktopNavigationMenu() {
           return (
             <NavigationMenuItem key={item.title}>
               <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <Link className="bg-transparent" href={item.href}>
-                  {item.title}
-                </Link>
+                <Link href={item.href}>{item.title}</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
           );

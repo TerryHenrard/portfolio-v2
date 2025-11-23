@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export function About() {
   return (
-    <section className="border-b py-24 flex items-center justify-center gap-16">
+    <section className="border-b py-24 flex items-center justify-center gap-16" id="about">
       <Image src={AboutImage} alt="About Me Image" width={712} height={712} />
 
       <div className="flex flex-col items-start gap-5">
