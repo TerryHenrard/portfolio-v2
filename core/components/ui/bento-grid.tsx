@@ -1,5 +1,4 @@
 import { Card, CardContent } from "@/core/components/ui/card";
-import { DiagonalSplitImage } from "@/core/components/ui/diagonal-split-image";
 import { cn } from "@/core/lib/utils";
 import Image from "next/image";
 
@@ -30,8 +29,6 @@ interface BentoGridItemProps {
   imageAlt: string;
   imageWidth: number;
   imageHeight: number;
-  secondImageSrc?: string;
-  secondImageAlt?: string;
 }
 
 export const BentoGridItem = ({
@@ -42,8 +39,6 @@ export const BentoGridItem = ({
   imageAlt,
   imageWidth,
   imageHeight,
-  secondImageSrc,
-  secondImageAlt,
 }: BentoGridItemProps) => {
   return (
     <Card className={cn("h-full p-0 overflow-hidden", className)}>
@@ -51,25 +46,15 @@ export const BentoGridItem = ({
         <h3 className="text-foreground text-lg font-semibold font-mono">{title}</h3>
         <p className="text-muted-foreground">{description}</p>
       </CardContent>
-      {secondImageSrc && secondImageAlt ? (
-        <DiagonalSplitImage
-          src1={imageSrc}
-          alt1={imageAlt}
-          src2={secondImageSrc}
-          alt2={secondImageAlt}
-          width={imageWidth}
-          height={imageHeight}
-          className="h-full w-full"
-        />
-      ) : (
-        <Image
-          alt={imageAlt}
-          width={imageWidth}
-          height={imageHeight}
-          className="h-full w-full object-cover object-center"
-          src={imageSrc}
-        />
-      )}
+      <Image
+        alt={imageAlt}
+        width={imageWidth}
+        height={imageHeight}
+        className={`h-full w-full object-cover object-center ${
+          imageSrc.endsWith("/ai-powered-saas-dashboard.png") ? "object-bottom pb-20" : ""
+        }`}
+        src={imageSrc}
+      />
     </Card>
   );
 };

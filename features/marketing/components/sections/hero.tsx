@@ -5,7 +5,7 @@ import Link from "next/link";
 import AvailabilityPing from "../availability-ping";
 import { Handwritted } from "../handwritted";
 
-import HeroImage from "@/public/images/hero.png";
+import HeroImage from "@/public/images/hero-variant.png";
 
 export function Hero() {
   return (
