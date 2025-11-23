@@ -5,7 +5,9 @@
     "henrard",
     "oklch",
     "Piron",
-    "Shadcn"
+    "Shadcn",
+    "squircle",
+    "toolwind"
   ],
   "typescript.tsdk": "node_modules\\typescript\\lib"
 }

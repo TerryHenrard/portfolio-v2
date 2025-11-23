@@ -48,7 +48,7 @@ const items: (ComponentProps<typeof BentoGridItem> & { href: string })[] = [
 
 export function Portfolio() {
   return (
-    <section className="py-24 border-b text-center flex flex-col gap-9.5">
+    <section className="py-24 border-b text-center flex flex-col gap-9.5" id="portfolio">
       <div className="max-w-xl m-auto flex flex-col gap-5">
         <Badge className="m-auto tracking-widest">PORTFOLIO</Badge>
         <TypographyH2>Discover what I've created</TypographyH2>
@@ -62,7 +62,7 @@ export function Portfolio() {
           <Link
             href={item.href}
             key={item.title}
-            className={i === 0 || i === 3 ? "md:col-span-2" : ""}
+            className={i === 0 || i === 3 ? "md:col-span-2" : "" + ""}
           >
             <BentoGridItem {...item} />
           </Link>

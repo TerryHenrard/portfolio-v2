@@ -1,5 +1,3 @@
-import { Footer } from "@/features/marketing/components/footer";
-import { Header } from "@/features/marketing/components/header";
 import { About } from "@/features/marketing/components/sections/about";
 import { Contact } from "@/features/marketing/components/sections/contact";
 import { Faq } from "@/features/marketing/components/sections/faq";
@@ -10,14 +8,12 @@ import { Testimonial } from "@/features/marketing/components/sections/testimonia
 export default function Home() {
   return (
     <main className="container m-auto">
-      <Header />
       <Hero />
       <Portfolio />
       <About />
       <Testimonial />
       <Contact />
       <Faq />
-      <Footer />
     </main>
   );
 }

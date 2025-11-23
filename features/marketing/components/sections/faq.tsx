@@ -4,9 +4,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/core/components/ui/accordion";
-import { Button } from "@/core/components/ui/button";
 import { TypographyH2, TypographyLead } from "@/core/components/ui/typography";
-import Link from "next/link";
+import { ContactMeCta } from "../contact-me-cta";
 
 const FAQS: { question: string; answer: string }[] = [
   {
@@ -48,7 +47,7 @@ export function Faq() {
 
   return (
     <section className="py-24 border-b" id="faq">
-      <div className="container mx-auto px-4 md:px-6">
+      <div className="container mx-auto">
         <div className="flex w-full flex-col gap-12 md:gap-16">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
             <div className="flex max-w-xl flex-col items-center text-center md:items-start md:text-left gap-4">
@@ -59,9 +58,7 @@ export function Faq() {
               </TypographyLead>
             </div>
             <div className="flex flex-col gap-3 md:flex-row">
-              <Button asChild>
-                <Link href="/contact">Contact me</Link>
-              </Button>
+              <ContactMeCta asChild size={"lg"} />
             </div>
           </div>
 
@@ -74,7 +71,7 @@ export function Faq() {
               <div className="flex flex-col gap-4">
                 {leftFaqs.map((faq, index) => (
                   <AccordionItem key={index} value={`item-${index}`} className="border-b-0">
-                    <AccordionTrigger className="text-left text-base font-semibold font-mono">
+                    <AccordionTrigger className="text-left text-base font-semibold font-mono cursor-pointer">
                       {faq.question}
                     </AccordionTrigger>
                     <AccordionContent className="text-muted-foreground text-base">

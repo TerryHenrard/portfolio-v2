@@ -29,7 +29,7 @@ const testimonials: TestimonialProps[] = [
 
 export function Testimonial() {
   return (
-    <section className="border-b py-24 flex gap-10 flex-col">
+    <section className="border-b py-24 flex gap-10 flex-col" id="testimonial">
       <div className="flex flex-col gap-5">
         <Badge className="tracking-widest">TESTIMONIAL</Badge>
         <TypographyH2>What my clients say</TypographyH2>
