@@ -49,7 +49,7 @@ export function TypographyP({ className, ...props }: React.ComponentProps<"p">) 
 }
 
 export function TypographyLead({ className, ...props }: React.ComponentProps<"p">) {
-  return <p className={cn("text-muted-foreground text-xl", className)} {...props} />;
+  return <p className={cn("text-muted-foreground text-base", className)} {...props} />;
 }
 
 export function TypographySmall({ className, ...props }: React.ComponentProps<"small">) {

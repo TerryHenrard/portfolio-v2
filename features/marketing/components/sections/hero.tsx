@@ -9,7 +9,7 @@ import { ViewProjectsCta } from "../view-projects-cta";
 
 export function Hero() {
   return (
-    <section className="border-b py-24 mt-17" id="hero">
+    <section className="border-b py-24" id="hero">
       <div className="flex flex-col md:flex-row items-center gap-6 md:gap-12 ">
         <div className="flex-1 flex flex-col gap-6">
           <AvailabilityPing variant={"secondary"} />

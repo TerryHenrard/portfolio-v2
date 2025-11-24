@@ -18,10 +18,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
   return (
-    <html lang="fr" suppressHydrationWarning>
+    <html lang="fr" suppressHydrationWarning id="home">
       <body
         className={`${geist.className} ${geistMono.variable} ${dancingScript.variable} antialiased`}
-        id="home"
       >
         <Providers>
           <Header />

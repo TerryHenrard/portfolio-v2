@@ -7,13 +7,13 @@ import { Testimonial } from "@/features/marketing/components/sections/testimonia
 
 export default function Home() {
   return (
-    <main className="container m-auto">
+    <div className="container m-auto pt-17">
       <Hero />
       <Portfolio />
       <About />
       <Testimonial />
       <Contact />
       <Faq />
-    </main>
+    </div>
   );
 }
