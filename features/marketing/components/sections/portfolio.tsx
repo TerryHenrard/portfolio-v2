@@ -13,7 +13,7 @@ const items: (ComponentProps<typeof BentoGridItem> & { href: string })[] = [
     imageAlt: "Thomas & Piron workers collaborating on site",
     imageWidth: 1016,
     imageHeight: 446,
-    href: "/",
+    href: "/portfolio/thomas-and-piron-ai-agent",
   },
   {
     title: "Website + Booking System",
@@ -23,7 +23,7 @@ const items: (ComponentProps<typeof BentoGridItem> & { href: string })[] = [
     imageAlt: "Booking System Project Screenshot",
     imageWidth: 846,
     imageHeight: 286,
-    href: "/",
+    href: "/portfolio/car-wash-from-home-website",
   },
   {
     title: "AI Powered Portfolio",
@@ -32,7 +32,7 @@ const items: (ComponentProps<typeof BentoGridItem> & { href: string })[] = [
     imageAlt: "AI Portfolio Project Screenshot",
     imageWidth: 846,
     imageHeight: 286,
-    href: "/",
+    href: "/portfolio/ai-powered-portfolio",
   },
   {
     title: "AI Powered SaaS Dashboard",
@@ -42,7 +42,7 @@ const items: (ComponentProps<typeof BentoGridItem> & { href: string })[] = [
     imageAlt: "AI Powered B2B SaaS Dashboard Screenshots",
     imageWidth: 1016,
     imageHeight: 446,
-    href: "/",
+    href: "/portfolio/ai-powered-saas-dashboard",
   },
 ];
 
