@@ -1,10 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   reactCompiler: true,
+  poweredByHeader: false,
   images: {
     remotePatterns: [new URL("https://shadcndesign-dev-portfolio-template.vercel.app/**")],
+  },
+  experimental: {
+    turbopackFileSystemCacheForDev: true,
   },
 };
 

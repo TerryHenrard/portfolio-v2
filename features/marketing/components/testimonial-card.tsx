@@ -25,7 +25,7 @@ export function TestimonialCard({ quote, highlightedText, author }: TestimonialP
           </p>
           <div className="flex flex-col items-center gap-5 md:flex-row">
             <Avatar className="size-14">
-              <AvatarImage src={author.image} alt={author.name} />
+              <AvatarImage src={author.image} alt={author.name} className="scale-130" />
               <AvatarFallback>
                 {author.name
                   .split(" ")

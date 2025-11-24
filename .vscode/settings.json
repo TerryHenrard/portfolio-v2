@@ -1,13 +1,21 @@
 {
   "cSpell.words": [
+    "alain",
     "Bento",
+    "clerckx",
+    "Clerckx",
     "Handwritted",
     "henrard",
+    "michel",
     "oklch",
     "Piron",
     "Shadcn",
     "squircle",
-    "toolwind"
+    "toolwind",
+    "turbopack",
+    "villani",
+    "Villani"
   ],
-  "typescript.tsdk": "node_modules\\typescript\\lib"
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "cSpell.language": "en,fr"
 }
