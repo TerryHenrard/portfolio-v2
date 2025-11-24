@@ -58,6 +58,7 @@ export function Portfolio() {
         </TypographyLead>
       </div>
       <BentoGrid className="mx-auto max-w-none">
+        {/* TODO: replace with content collection */}
         {items.map((item, i) => (
           <Link
             href={item.href}
@@ -67,6 +68,15 @@ export function Portfolio() {
             <BentoGridItem {...item} />
           </Link>
         ))}
+
+        {/* {allProjects.map((project) => {
+          return (
+            <ul key={project.title}>
+              <li>{project.title}</li>
+              <li>{project.summary}</li>
+            </ul>
+          );
+        })} */}
       </BentoGrid>
     </section>
   );
