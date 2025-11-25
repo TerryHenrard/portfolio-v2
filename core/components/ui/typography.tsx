@@ -40,7 +40,10 @@ export function TypographyH3({ className, ...props }: React.ComponentProps<"h3">
 
 export function TypographyH4({ className, ...props }: React.ComponentProps<"h4">) {
   return (
-    <h4 className={cn("scroll-m-20 text-xl font-semibold tracking-tight", className)} {...props} />
+    <h4
+      className={cn("font-mono scroll-m-20 text-xl font-semibold tracking-tight", className)}
+      {...props}
+    />
   );
 }
 

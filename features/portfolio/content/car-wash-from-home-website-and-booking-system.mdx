@@ -11,4 +11,163 @@ coverImagePath: "/images/portfolio/car-wash-from-home-website-and-booking-system
 coverImageAlt: "Car Wash From Home Website Responsive Mockup"
 ---
 
-# Car Wash From Home - Website and Booking System
+import { Alert, AlertDescription, AlertTitle } from "@/core/components/ui/alert";
+import { Badge } from "@/core/components/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/core/components/ui/card";
+import { CalendarCheck, Terminal, Zap } from "lucide-react";
+
+![Car Wash Responsive Mockup](/images/portfolio/car-wash-from-home-website-and-booking-system/responsive-mockup-1.png)
+
+# The "Excel" Exorcism
+
+There is a specific kind of chaos that comes from running a successful mobile car wash business using only a WordPress landing page, a phone number, and a shared Excel spreadsheet.
+
+"Car Wash From Home" (CWFH) was growing fast, but their backend operations were stuck in 2010. Double bookings were common, customers had to call to find an open slot, and the admins were spending their evenings manually reconciling paper notes with digital spreadsheets.
+
+They needed to stop playing "Tetris" with appointments and start automating.
+
+## Contents
+
+## The Mission
+
+I was brought in to perform a complete digital overhaul. The goal was simple but ambitious: kill the spreadsheet, modernize the brand, and build a booking brain that could handle the nuances of a real-world workforce.
+
+<div className="flex flex-wrap gap-2 my-6">
+  <Badge variant="secondary">Next.js 16</Badge>
+  <Badge variant="secondary">Neon (Serverless Postgres)</Badge>
+  <Badge variant="secondary">Vercel (Serverless Infra)</Badge>
+  <Badge variant="secondary">Prisma ORM</Badge>
+  <Badge variant="secondary">Tailwind CSS</Badge>
+</div>
+
+## The Solution: More Than Just a Date Picker
+
+A generic booking plugin wouldn't cut it. CWFH needed logic that understood that humans need lunch breaks, that Christmas exists, and that sometimes a van breaks down on a Tuesday.
+
+I built a custom solution centered around **granular availability control**.
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+  <Card>
+    <CardHeader>
+      <CardTitle className="flex items-center gap-2">
+        <CalendarCheck className="w-5 h-5" />
+        Admin Autonomy
+      </CardTitle>
+    </CardHeader>
+    <CardContent>
+      Admins aren't locked into a rigid 9-to-5 structure. They can define standard opening hours,
+      but easily override them for <strong>Ad Hoc</strong> events, set specific closing days, or
+      block out time for equipment maintenance instantly.
+    </CardContent>
+  </Card>
+  <Card>
+    <CardHeader>
+      <CardTitle className="flex items-center gap-2">
+        <Zap className="w-5 h-5" />
+        Instant UX
+      </CardTitle>
+    </CardHeader>
+    <CardContent>
+      By moving away from their sluggish WordPress theme to a bespoke <strong>Next.js</strong>{" "}
+      frontend, we achieved near-instant page loads. The booking flow guides the user from service
+      selection to confirmation in under 60 seconds.
+    </CardContent>
+  </Card>
+</div>
+
+## The Technical Deep Dive
+
+The UI was the fun part, but the database was the headache. Designing a schema that is performant enough to query availability in real-time, while being flexible enough to handle "Standard Tuesdays" vs "Christmas Eve Tuesday," required a complex relational structure.
+
+I settled on a **5-table architecture** (appointments, business-hours, recurring-time-slots, slot-exceptions, adhox-time-slots) to decouple "Time" from "Availability."
+
+{/* ![Database ERD Architecture Diagram](/images/portfolio/car-wash-from-home-website-and-booking-system/db-architecture-placeholder.png) */}
+{/* _A high-level view of the schema separating Business Rules from Actual Appointments._ */}
+
+### The Schema Strategy
+
+#### Structuring Complexity
+
+We couldn't just have an `appointments` table. We needed to define the "Potential" for appointments first.
+
+- **business-hours**: Defines the recursive weekly template for standard opening hours.
+
+- **recurring-time-slots**: Represents normalized, recurring availability derived from the weekly template.
+
+- **slot-exceptions**: Handles specific-date overrides (Holidays, Sick leave, one-off closed days).
+
+- **adhox-time-slots**: Fixed, ad-hoc intra-day blocks (Lunch, shift changes, temporary capacity adjustments).
+
+- **appointments**: The actual committed slots.
+
+### The Logic
+
+Here is a simplified look at how we calculate slots. We don't store "free slots" in the DB; we calculate them on the fly to ensure atomic accuracy.
+
+```typescript showLineNumbers
+// Simplified logic for generating availability
+async function getAvailableSlots(date: Date, serviceDuration: number) {
+  // 1. Fetch Master Rules (business-hours), recurring time slots and slot-exceptions (Holidays or one-offs)
+  const rules = await prisma.businessHours.findMany({ ... });
+
+  // 2. Fetch existing appointments for that specific day
+  const appointments = await prisma.appointment.findMany({
+  where: { date: date }
+  });
+
+  // 3. Generate all possible time chunks (e.g., 09:00, 09:30...)
+  const potentialSlots = generateTimeChunks(rules);
+
+  // 4. Filter out collisions
+  return potentialSlots.filter(slot => {
+  return !isOverlapping(slot, appointments) && !isDuringBreak(slot);
+  });
+}
+```
+
+## The Results
+
+We launched the new platform just before the spring rush. The impact was immediate. The phone stopped ringing off the hook, not because customers left, but because they were happily booking online at 11 PM.
+
+<div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-8">
+  <div className="bg-primary/5 border border-primary/20 rounded-xl p-6 text-center">
+    <h3 className="text-4xl font-extrabold text-primary mb-2">50%</h3>
+    <div className="text-sm text-muted-foreground uppercase tracking-wider font-semibold">
+      Speed Increase
+    </div>
+  </div>
+  <div className="bg-primary/5 border border-primary/20 rounded-xl p-6 text-center">
+    <h3 className="text-4xl font-extrabold text-primary mb-2">10k+</h3>
+    <div className="text-sm text-muted-foreground uppercase tracking-wider font-semibold">
+      Happy Users
+    </div>
+  </div>
+  <div className="bg-primary/5 border border-primary/20 rounded-xl p-6 text-center">
+    <h3 className="text-4xl font-extrabold text-primary mb-2">30%</h3>
+    <div className="text-sm text-muted-foreground uppercase tracking-wider font-semibold">
+      Admin Time Saved
+    </div>
+  </div>
+</div>
+
+<Alert>
+  <Terminal className="h-4 w-4" />
+  <AlertTitle>No More Paper</AlertTitle>
+  <AlertDescription>
+    The greatest win wasn't the code; it was the lifestyle change for the client. Zero manual
+    booking handling means the team can focus on washing cars, not shuffling paper.
+  </AlertDescription>
+</Alert>
+
+## Conclusion
+
+This project proved that for local businesses, a custom solution isn't vanity—it's necessary efficiency. Moving from WordPress to a Serverless Next.js architecture didn't just make the site look pretty; it fundamentally changed how the company operates.
+
+And honestly? I don't miss migrating data from Excel one bit. 😴

@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return [{ slug: "thomas-and-piron-ai-agent" }];
+  return allProjects.map((project) => ({ slug: project._meta.path }));
 }
 
 interface PortfolioProps {
