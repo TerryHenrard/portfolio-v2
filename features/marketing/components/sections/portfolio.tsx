@@ -9,7 +9,7 @@ const items: (ComponentProps<typeof BentoGridItem> & { href: string })[] = [
     title: "Thomas & Piron - AI Agent",
     description:
       "Dive into the implementation of an AI agent for the customer services department of Thomas & Piron.",
-    imageSrc: "/images/portfolio/thomas-piron-ai-agent-project-phone-mockup-1.png",
+    imageSrc: "/images/portfolio/thomas-piron/phone-mockup-1.png",
     imageAlt: "Thomas & Piron workers collaborating on site",
     imageWidth: 1016,
     imageHeight: 446,

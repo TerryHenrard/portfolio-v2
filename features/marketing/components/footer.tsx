@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Handwritted } from "./handwritted";
 
 const navigation = [
-  { href: "/#home", label: "Home" },
+  { href: "/", label: "Home" },
   { href: "/#projects", label: "Projects" },
   { href: "/#about-me", label: "About me" },
   { href: "/blog", label: "Blog" },

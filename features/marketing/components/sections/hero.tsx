@@ -14,7 +14,7 @@ export function Hero() {
         <div className="flex-1 flex flex-col gap-6">
           <AvailabilityPing variant={"secondary"} />
           <Handwritted className="text-3xl text-muted-foreground" />
-          <TypographyH1>Your go-to AI engineer for Next.js projects</TypographyH1>
+          <TypographyH1>Your go-to AI engineer for Next projects</TypographyH1>
           <TypographyLead className="text-lg">
             Bringing your ideas to life with clean, efficient, and scalable code. Whether it's
             building web apps, optimizing performance, or solving complex technical challenges.
@@ -25,7 +25,15 @@ export function Hero() {
           </div>
         </div>
         <div className="flex-1">
-          <Image src={HeroImage} alt="Hero Image" width={712} height={712} />
+          <Image
+            src={HeroImage}
+            alt="Hero Image"
+            width={712}
+            height={712}
+            fetchPriority="high"
+            preload
+            loading="eager"
+          />
         </div>
       </div>
     </section>

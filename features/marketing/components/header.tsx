@@ -18,7 +18,7 @@ export function Header() {
           : "top-0 w-full container bg-background/10 backdrop-blur-sm py-4 px-4 md:px-8"
       )}
     >
-      <Link href="/#home">
+      <Link href="/">
         <Handwritted />
       </Link>
       <div className="flex items-center gap-4 ">
