@@ -3,7 +3,7 @@ import { z } from "zod";
 
 const projectSchema = z.object({
   title: z.string(),
-  summary: z.string(),
+  description: z.string(),
   author: z.string(),
   createdAt: z
     .string()
@@ -11,10 +11,13 @@ const projectSchema = z.object({
   updatedAt: z
     .string()
     .refine((date) => !isNaN(Date.parse(date)), { message: "Invalid date format" }),
+  coverImagePath: z.string(),
+  coverImageAlt: z.string(),
+  content: z.string(),
+
   tags: z.array(z.string()).optional(),
   category: z.string().optional(),
   readingTimeMinutes: z.number().optional(),
-  content: z.string(),
 });
 
 export type Project = z.infer<typeof projectSchema>;

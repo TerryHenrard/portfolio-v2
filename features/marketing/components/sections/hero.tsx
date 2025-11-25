@@ -3,7 +3,7 @@ import Image from "next/image";
 import AvailabilityPing from "../availability-ping";
 import { Handwritted } from "../handwritted";
 
-import HeroImage from "@/public/images/hero-variant.png";
+import HeroImage from "@/public/images/marketing/hero.png";
 import { ContactMeCta } from "../contact-me-cta";
 import { ViewProjectsCta } from "../view-projects-cta";
 

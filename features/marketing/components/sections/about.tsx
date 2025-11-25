@@ -1,6 +1,6 @@
 import { Badge } from "@/core/components/ui/badge";
 import { TypographyH2, TypographyLead } from "@/core/components/ui/typography";
-import AboutImage from "@/public/images/about.png";
+import AboutImage from "@/public/images/marketing/about.png";
 import Image from "next/image";
 import { ContactMeCta } from "../contact-me-cta";
 import { ViewProjectsCta } from "../view-projects-cta";

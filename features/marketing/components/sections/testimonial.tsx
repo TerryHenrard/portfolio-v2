@@ -10,7 +10,7 @@ const testimonials: TestimonialProps[] = [
     author: {
       name: "Michel Villani",
       role: "Head of Engineering and R&D at Thomas & Piron",
-      image: "/images/michel-villani-avatar.png",
+      image: "/images/marketing/michel-villani-avatar.png",
     },
   },
   {
@@ -20,7 +20,7 @@ const testimonials: TestimonialProps[] = [
     author: {
       name: "Alain Clerckx",
       role: "Founder and CEO at VISIT ME",
-      image: "/images/alain-clerckx-avatar.png",
+      image: "/images/marketing/alain-clerckx-avatar.png",
     },
   },
 ];

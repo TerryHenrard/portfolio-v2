@@ -1,50 +1,11 @@
 import { Badge } from "@/core/components/ui/badge";
 import { BentoGrid, BentoGridItem } from "@/core/components/ui/bento-grid";
 import { TypographyH2, TypographyLead } from "@/core/components/ui/typography";
+import { allProjects } from "content-collections";
 import Link from "next/link";
-import { ComponentProps } from "react";
 
-const items: (ComponentProps<typeof BentoGridItem> & { href: string })[] = [
-  {
-    title: "Thomas & Piron - AI Agent",
-    description:
-      "Dive into the implementation of an AI agent for the customer services department of Thomas & Piron.",
-    imageSrc: "/images/portfolio/thomas-piron/phone-mockup-1.png",
-    imageAlt: "Thomas & Piron workers collaborating on site",
-    imageWidth: 1016,
-    imageHeight: 446,
-    href: "/portfolio/thomas-and-piron-ai-agent",
-  },
-  {
-    title: "Website + Booking System",
-    description:
-      "Explore the development of a website and booking system for a local car cleaning company.",
-    imageSrc: "/images/car-wash-from-home-website-project.png",
-    imageAlt: "Booking System Project Screenshot",
-    imageWidth: 846,
-    imageHeight: 286,
-    href: "/portfolio/car-wash-from-home-website",
-  },
-  {
-    title: "AI Powered Portfolio",
-    description: "Discover how I implemented a knowledge based AI assistant for my portfolio.",
-    imageSrc: "/images/ai-powered-portfolio-project-tablet-mockup.png",
-    imageAlt: "AI Portfolio Project Screenshot",
-    imageWidth: 846,
-    imageHeight: 286,
-    href: "/portfolio/ai-powered-portfolio",
-  },
-  {
-    title: "AI Powered SaaS Dashboard",
-    description:
-      "Experience the development of an AI-powered dashboard for a B2B SaaS application.",
-    imageSrc: "/images/ai-powered-saas-dashboard.png",
-    imageAlt: "AI Powered B2B SaaS Dashboard Screenshots",
-    imageWidth: 1016,
-    imageHeight: 446,
-    href: "/portfolio/ai-powered-saas-dashboard",
-  },
-];
+const [one, two, three, four] = allProjects;
+const sortedProjects = [three, two, one, four]; // Ensure consistent order
 
 export function Portfolio() {
   return (
@@ -58,25 +19,15 @@ export function Portfolio() {
         </TypographyLead>
       </div>
       <BentoGrid className="mx-auto max-w-none">
-        {/* TODO: replace with content collection */}
-        {items.map((item, i) => (
+        {sortedProjects.map((project, index) => (
           <Link
-            href={item.href}
-            key={item.title}
-            className={i === 0 || i === 3 ? "md:col-span-2" : "" + ""}
+            href={`/portfolio/${project._meta.path}`}
+            key={project.title}
+            className={index === 0 || index === 3 ? "md:col-span-2" : "" + ""}
           >
-            <BentoGridItem {...item} />
+            <BentoGridItem {...project} />
           </Link>
         ))}
-
-        {/* {allProjects.map((project) => {
-          return (
-            <ul key={project.title}>
-              <li>{project.title}</li>
-              <li>{project.summary}</li>
-            </ul>
-          );
-        })} */}
       </BentoGrid>
     </section>
   );
