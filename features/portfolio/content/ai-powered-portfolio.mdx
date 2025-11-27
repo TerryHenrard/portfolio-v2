@@ -1,9 +1,9 @@
 ---
-title: "AI Powered Portfolio"
-description: "Discover how I implemented a knowledge based AI assistant for my portfolio."
+title: "AI-Powered Portfolio"
+description: "Discover how I implemented a knowledge-based AI assistant for a web dev portfolio."
 author: "Terry Henrard"
-createdAt: "2025-11-24"
-updatedAt: "2025-11-24"
+createdAt: "2025-11-25"
+updatedAt: "2025-11-25"
 tags: ["AI", "Knowledge Base", "Chatbot"]
 category: "portfolio"
 readingTimeMinutes: 5
@@ -11,4 +11,180 @@ coverImagePath: "/images/portfolio/ai-powered-portfolio/tablet-mockup-1.png"
 coverImageAlt: "AI Powered Portfolio Dashboard Mockup"
 ---
 
-# AI Powered Portfolio
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/core/components/ui/accordion";
+import { Badge } from "@/core/components/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/core/components/ui/card";
+import { Separator } from "@/core/components/ui/separator";
+import { allProjects } from "content-collections";
+
+![AI Portfolio Hero](/images/portfolio/ai-powered-portfolio/tablet-mockup-1.png "A modern chat interface seamlessly integrated into a web portfolio.")
+
+# The "Ghost Town" Dilemma
+
+We've all been there: you land on a portfolio website looking for a specific skill or a pricing estimate, but the navigation is a maze. You click around for 20 seconds, get frustrated, and leave.
+
+For a business, this isn't just a UI problem; it's a **revenue leak**.
+
+I noticed that users were bouncing off the site faster than I could say "Full Stack Developer." The content was there, but it was buried. I didn't need a better search bar; I needed a guide. A way to hold the user's hand and lead them exactly where they wanted to go.
+
+## Enter the Smart Assistant
+
+I built a custom, knowledge-based AI chatbot designed to live on the client's website. But this isn't your standard "Please hold while I connect you" bot. It's a context-aware digital concierge.
+
+{/* ![Chatbot Interaction](/images/portfolio/ai-portfolio/interaction-demo.png) */}
+
+### Core Capabilities
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+  <Card>
+    <CardHeader>
+      <CardTitle>Real-Time Streaming</CardTitle>
+    </CardHeader>
+    <CardContent>
+      Using Next.js streams, the AI types its answer token-by-token. No staring at a spinning
+      loader; the feedback is immediate and feels like a natural conversation.
+    </CardContent>
+  </Card>
+  <Card>
+    <CardHeader>
+      <CardTitle>Business Aware (Cost)</CardTitle>
+    </CardHeader>
+    <CardContent>
+      I didn't burn money using GPT-5 for saying "Hello." The system is architected to be highly
+      cost-efficient, using lighter models for simple tasks and heavy hitters only when necessary.
+    </CardContent>
+  </Card>
+  <Card>
+    <CardHeader>
+      <CardTitle>Smart Tool Calling</CardTitle>
+    </CardHeader>
+    <CardContent>
+      When a user expresses interest in a meeting, the AI doesn't just send a link. It dynamically
+      renders a **Contact Form UI** right inside the chat window.
+    </CardContent>
+  </Card>
+  <Card>
+    <CardHeader>
+      <CardTitle>Admin Summaries</CardTitle>
+    </CardHeader>
+    <CardContent>
+      The conversation doesn't die in the chat. The system summarizes the interaction and sends it
+      to the admin, allowing for high-context follow-ups.
+    </CardContent>
+  </Card>
+</div>
+
+## Code Highlight: The Intention Router
+
+The trickiest technical challenge was figuring out _what_ the user actually wanted without overpaying for API tokens.
+
+To solve this, I implemented a **Multi-Model Routing** system. A lightweight, fast model acts as the "Traffic Cop," analyzing the intention. Based on that intent, it routes the request to the appropriate handler.
+
+Here is a simplified look at how I handle this routing using the AI SDK:
+
+```typescript showLineNumbers
+import { generateText } from "ai";
+import { openai } from "@ai-sdk/openai";
+
+export async function routeRequest(userQuery: string) {
+  // 1. The Traffic Cop: Use a cheap, fast model to detect intent
+  const { text: intention } = await generateText({
+    model: openai("gpt-4o-mini"), // Cost-efficient choice
+    system: `
+      Analyze the user query.
+      Return "GENERAL" for casual chat.
+      Return "HIRE" if they want to work with us.
+      Return "TECHNICAL" for complex questions.
+    `,
+    prompt: userQuery,
+  });
+
+  // 2. Route to the specialized handler
+  switch (intention) {
+    case "HIRE":
+      return await handleHiringFlow(userQuery); // Triggers form tools
+    case "TECHNICAL":
+      return await handleRAGFlow(userQuery); // Performs vector search
+    default:
+      return await handleChitChat(userQuery); // Simple completion
+  }
+}
+```
+
+## Under the Hood: The Tech Stack
+
+I handled the entire lifecycle of this project, from the backend logic to the high-accessibility frontend design.
+
+<div className="flex flex-wrap gap-2 my-4">
+  <Badge variant="secondary">AI SDK</Badge>
+  <Badge variant="secondary">OpenAI Platform</Badge>
+  <Badge variant="secondary">Next.js 16 (App Router)</Badge>
+  <Badge variant="secondary">React (Shadcn UI)</Badge>
+  <Badge variant="secondary">TypeScript</Badge>
+</div>
+
+![Architecture Diagram](/images/portfolio/ai-powered-portfolio/architecture-diagram.png)
+
+### The Routing Architecture
+
+The "cool factor" of this project lies in how it orchestrates different models. It's not a monolith; it's a team of specialists.
+
+<Accordion type="single" collapsible className="w-full not-prose">
+  <AccordionItem value="routing">
+    <AccordionTrigger>Multi-Model Routing</AccordionTrigger>
+    <AccordionContent>
+      By separating **Intention Detection** from **Response Generation**, we achieved two things:
+      speed and savings. We don't need a reasoning model to handle greetings, but we do need one to
+      parse complex project requirements.
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="ui">
+    <AccordionTrigger>Generative UI</AccordionTrigger>
+    <AccordionContent>
+      The frontend uses the AI SDK to render React components based on the AI's state. If the
+      intention is "HIRE," the AI instructs the frontend to render the `<ContactForm />` component
+      instead of just outputting text.
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="sync">
+    <AccordionTrigger>Real-Time Sync</AccordionTrigger>
+    <AccordionContent>
+      The conversation state is synchronized in real-time. If the user reloads or switches devices,
+      the context remains, and the Admin dashboard updates instantly with new leads.
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+
+## The Impact
+
+The goal was to make people stay. And they did. By giving users a conversational way to explore the site, we transformed bounce rates into conversation rates.
+
+<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-8">
+  <div className="flex flex-col items-center justify-center p-6 bg-primary/5 rounded-lg border border-primary/10">
+    <span className="text-4xl font-bold text-primary">3x</span>
+    <span className="text-muted-foreground text-center mt-2">Increase in Session Duration</span>
+  </div>
+  <div className="flex flex-col items-center justify-center p-6 bg-primary/5 rounded-lg border border-primary/10">
+    <span className="text-4xl font-bold text-primary">1m+</span>
+    <span className="text-muted-foreground text-center mt-2">Avg. Time on Page (up from 20s)</span>
+  </div>
+</div>
+
+![Mobile Chat View](/images/portfolio/ai-powered-portfolio/laptop-mockup-1.png)
+
+## Conclusion
+
+This project proved that AI in web development isn't just about slapping a chatbot on a page; it's about **architecting a journey**.
+
+By using smart routing and cost-effective models, I built a solution that keeps users engaged without breaking the bank. The AI does the talking, the users get their answers, and I... well, I get to watch the engagement metrics go up while I sleep. 📈
