@@ -5,6 +5,7 @@ import { PropsWithChildren } from "react";
 
 import { Footer } from "@/features/marketing/components/footer";
 import { Header } from "@/features/marketing/components/header";
+import "@vidstack/react/player/styles/base.css";
 import "./globals.css";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });

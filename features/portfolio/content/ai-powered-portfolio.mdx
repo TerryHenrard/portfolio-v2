@@ -26,7 +26,7 @@ import {
   CardTitle,
 } from "@/core/components/ui/card";
 import { Separator } from "@/core/components/ui/separator";
-import { allProjects } from "content-collections";
+import { MediaPlayer, MediaProvider } from "@vidstack/react";
 
 ![AI Portfolio Hero](/images/portfolio/ai-powered-portfolio/tablet-mockup-1.png "A modern chat interface seamlessly integrated into a web portfolio.")
 
@@ -38,11 +38,24 @@ For a business, this isn't just a UI problem; it's a **revenue leak**.
 
 I noticed that users were bouncing off the site faster than I could say "Full Stack Developer." The content was there, but it was buried. I didn't need a better search bar; I needed a guide. A way to hold the user's hand and lead them exactly where they wanted to go.
 
+## Contents
+
 ## Enter the Smart Assistant
 
 I built a custom, knowledge-based AI chatbot designed to live on the client's website. But this isn't your standard "Please hold while I connect you" bot. It's a context-aware digital concierge.
 
-{/* ![Chatbot Interaction](/images/portfolio/ai-portfolio/interaction-demo.png) */}
+<MediaPlayer
+  className="rounded-2xl"
+  title="AI-Powered Portfolio Demo"
+  src="/videos/ai-powered-portfolio-demo.mp4"
+  aspectRatio="16/9"
+  load="idle"
+  viewType="video"
+  autoPlay
+  muted
+>
+  <MediaProvider />
+</MediaPlayer>
 
 ### Core Capabilities
 

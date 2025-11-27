@@ -23,7 +23,7 @@ export function Contact() {
 
         <Separator className="block md:hidden" />
 
-        <Card className="w-full md:bg-muted/40 flex-1 md:p-6 gap-6 md:gap-8">
+        <Card className="w-full md:bg-muted/40 flex-1 md:p-6 gap-6 md:gap-8 corner-squircle rounded-4xl">
           <CardContent>
             <div className="flex flex-col gap-8">
               <a

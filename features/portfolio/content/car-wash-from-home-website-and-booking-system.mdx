@@ -21,6 +21,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/core/components/ui/card";
+import { MediaPlayer, MediaProvider } from "@vidstack/react";
 import { CalendarCheck, Terminal, Zap } from "lucide-react";
 
 ![Car Wash Responsive Mockup](/images/portfolio/car-wash-from-home-website-and-booking-system/responsive-mockup-1.png)
@@ -54,6 +55,20 @@ I was brought in to perform a complete digital overhaul. The goal was simple but
 A generic booking plugin wouldn't cut it. CWFH needed logic that understood that humans need lunch breaks, that Christmas exists, and that sometimes a van breaks down on a Tuesday.
 
 I built a custom solution centered around **granular availability control**.
+
+<MediaPlayer
+  className="rounded-2xl"
+  title="Car Wash From Home Demo"
+  src="/videos/car-wash-from-home-website-and-booking-system-demo.mp4"
+  aspectRatio="16/9"
+  load="idle"
+  viewType="video"
+  autoPlay
+  muted
+  loop
+>
+  <MediaProvider />
+</MediaPlayer>
 
 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
   <Card>
