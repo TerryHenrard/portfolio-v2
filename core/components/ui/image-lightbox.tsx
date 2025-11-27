@@ -21,25 +21,27 @@ interface ImageLightboxProps extends Omit<ImageProps, "onClick"> {
 export function ImageLightbox({ src, alt, className, ...props }: ImageLightboxProps) {
   return (
     <Dialog>
-      <DialogTrigger className="group overflow-hidden not-prose" asChild>
-        <div className="my-8 rounded-4xl corner-squircle">
-          <button
-            type="button"
-            className="block w-full cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 "
-            aria-label={`View ${alt || "image"} in fullscreen`}
-          >
-            <Image
-              src={src}
-              alt={alt || ""}
-              sizes="100vw"
-              className={cn(
-                "w-full h-auto corner-squircle rounded-4xl group-hover:scale-115 transition-transform duration-800 ease-in-out",
-                className
-              )}
-              {...props}
-            />
-          </button>
-        </div>
+      <DialogTrigger asChild>
+        <button
+          type="button"
+          className={cn(
+            "group overflow-hidden not-prose my-8 rounded-4xl corner-squircle block w-full cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+            className
+          )}
+          aria-label={`View ${alt || "image"} in fullscreen`}
+        >
+          <Image
+            src={src}
+            alt={alt || ""}
+            sizes="100vw"
+            className={cn(
+              "w-full h-auto corner-squircle rounded-4xl group-hover:scale-115 transition-transform duration-800 ease-in-out",
+              "pointer-events-none",
+              className
+            )}
+            {...props}
+          />
+        </button>
       </DialogTrigger>
       <DialogPortal>
         <DialogOverlay className="bg-black/80 backdrop-blur-sm" />

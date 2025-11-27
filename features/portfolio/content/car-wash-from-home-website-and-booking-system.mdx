@@ -6,7 +6,7 @@ createdAt: "2025-11-24"
 updatedAt: "2025-11-24"
 tags: ["Web Development", "Booking System", "Local Business"]
 category: "portfolio"
-readingTimeMinutes: 5
+readingTimeMinutes: 6
 coverImagePath: "/images/portfolio/car-wash-from-home-website-and-booking-system/responsive-mockup-1.png"
 coverImageAlt: "Car Wash From Home Website Responsive Mockup"
 ---
@@ -47,6 +47,8 @@ I was brought in to perform a complete digital overhaul. The goal was simple but
   <Badge variant="secondary">Tailwind CSS</Badge>
 </div>
 
+![Car Wash Responsive Mockup 2](/images/portfolio/car-wash-from-home-website-and-booking-system/responsive-mockup-2.png)
+
 ## The Solution: More Than Just a Date Picker
 
 A generic booking plugin wouldn't cut it. CWFH needed logic that understood that humans need lunch breaks, that Christmas exists, and that sometimes a van breaks down on a Tuesday.
@@ -86,10 +88,10 @@ I built a custom solution centered around **granular availability control**.
 
 The UI was the fun part, but the database was the headache. Designing a schema that is performant enough to query availability in real-time, while being flexible enough to handle "Standard Tuesdays" vs "Christmas Eve Tuesday," required a complex relational structure.
 
-I settled on a **5-table architecture** (appointments, business-hours, recurring-time-slots, slot-exceptions, adhox-time-slots) to decouple "Time" from "Availability."
+I settled on a **5-table architecture** (appointments, business-hours, recurring-time-slots, slot-exceptions, adhoc-time-slots) to decouple "Time" from "Availability."
 
-{/* ![Database ERD Architecture Diagram](/images/portfolio/car-wash-from-home-website-and-booking-system/db-architecture-placeholder.png) */}
-{/* _A high-level view of the schema separating Business Rules from Actual Appointments._ */}
+![Database Architecture Diagram](/images/portfolio/car-wash-from-home-website-and-booking-system/database-architecture.png)
+_A high-level view of the schema separating Business Rules from Actual Appointments._
 
 ### The Schema Strategy
 
@@ -103,7 +105,7 @@ We couldn't just have an `appointments` table. We needed to define the "Potentia
 
 - **slot-exceptions**: Handles specific-date overrides (Holidays, Sick leave, one-off closed days).
 
-- **adhox-time-slots**: Fixed, ad-hoc intra-day blocks (Lunch, shift changes, temporary capacity adjustments).
+- **adhoc-time-slots**: Fixed, ad-hoc intra-day blocks (Lunch, shift changes, temporary capacity adjustments).
 
 - **appointments**: The actual committed slots.
 
@@ -138,7 +140,7 @@ We launched the new platform just before the spring rush. The impact was immedia
 
 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-8">
   <div className="bg-primary/5 border border-primary/20 rounded-xl p-6 text-center">
-    <h3 className="text-4xl font-extrabold text-primary mb-2">50%</h3>
+    <h3 className="text-4xl font-extrabold text-primary mb-2">66%</h3>
     <div className="text-sm text-muted-foreground uppercase tracking-wider font-semibold">
       Speed Increase
     </div>
@@ -150,7 +152,7 @@ We launched the new platform just before the spring rush. The impact was immedia
     </div>
   </div>
   <div className="bg-primary/5 border border-primary/20 rounded-xl p-6 text-center">
-    <h3 className="text-4xl font-extrabold text-primary mb-2">30%</h3>
+    <h3 className="text-4xl font-extrabold text-primary mb-2">80%</h3>
     <div className="text-sm text-muted-foreground uppercase tracking-wider font-semibold">
       Admin Time Saved
     </div>
@@ -165,6 +167,8 @@ We launched the new platform just before the spring rush. The impact was immedia
     booking handling means the team can focus on washing cars, not shuffling paper.
   </AlertDescription>
 </Alert>
+
+![Car Wash Tablet Mockup 1](/images/portfolio/car-wash-from-home-website-and-booking-system/tablet-mockup-1.png)
 
 ## Conclusion
 
