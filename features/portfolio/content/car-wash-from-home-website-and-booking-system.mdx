@@ -58,20 +58,20 @@ I built a custom solution centered around **granular availability control**.
 
 <MediaPlayer
   className="rounded-2xl"
-  title="Car Wash From Home Demo"
   src="/videos/car-wash-from-home-website-and-booking-system-demo.mp4"
+  title="Car Wash From Home Demo"
   aspectRatio="16/9"
-  load="idle"
-  viewType="video"
-  autoPlay
   muted
   loop
+  autoPlay
+  viewType="video"
+  load="idle"
 >
   <MediaProvider />
 </MediaPlayer>
 
 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
-  <Card>
+  <Card className="rounded-4xl corner-squircle">
     <CardHeader>
       <CardTitle className="flex items-center gap-2">
         <CalendarCheck className="w-5 h-5" />
@@ -84,7 +84,7 @@ I built a custom solution centered around **granular availability control**.
       block out time for equipment maintenance instantly.
     </CardContent>
   </Card>
-  <Card>
+  <Card className="rounded-4xl corner-squircle">
     <CardHeader>
       <CardTitle className="flex items-center gap-2">
         <Zap className="w-5 h-5" />
@@ -154,19 +154,19 @@ async function getAvailableSlots(date: Date, serviceDuration: number) {
 We launched the new platform just before the spring rush. The impact was immediate. The phone stopped ringing off the hook, not because customers left, but because they were happily booking online at 11 PM.
 
 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-8">
-  <div className="bg-primary/5 border border-primary/20 rounded-xl p-6 text-center">
+  <div className="bg-primary/5 border border-primary/20 rounded-4xl corner-squircle p-6 text-center">
     <h3 className="text-4xl font-extrabold text-primary mb-2">66%</h3>
     <div className="text-sm text-muted-foreground uppercase tracking-wider font-semibold">
       Speed Increase
     </div>
   </div>
-  <div className="bg-primary/5 border border-primary/20 rounded-xl p-6 text-center">
+  <div className="bg-primary/5 border border-primary/20 rounded-4xl corner-squircle p-6 text-center">
     <h3 className="text-4xl font-extrabold text-primary mb-2">10k+</h3>
     <div className="text-sm text-muted-foreground uppercase tracking-wider font-semibold">
       Happy Users
     </div>
   </div>
-  <div className="bg-primary/5 border border-primary/20 rounded-xl p-6 text-center">
+  <div className="bg-primary/5 border border-primary/20 rounded-4xl corner-squircle p-6 text-center">
     <h3 className="text-4xl font-extrabold text-primary mb-2">80%</h3>
     <div className="text-sm text-muted-foreground uppercase tracking-wider font-semibold">
       Admin Time Saved

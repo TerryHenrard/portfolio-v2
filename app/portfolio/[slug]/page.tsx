@@ -26,7 +26,7 @@ export default async function Portfolio({ params }: PortfolioProps) {
       className="prose lg:prose-lg mx-auto dark:prose-invert"
       id={`portfolio-project-${slug}`}
     >
-      {project && <ContentBadges {...project} />}
+      <ContentBadges {...project} />
       <Content />
     </article>
   );

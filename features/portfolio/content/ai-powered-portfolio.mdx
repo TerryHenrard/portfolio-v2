@@ -27,6 +27,7 @@ import {
 } from "@/core/components/ui/card";
 import { Separator } from "@/core/components/ui/separator";
 import { MediaPlayer, MediaProvider } from "@vidstack/react";
+import { defaultLayoutIcons, DefaultVideoLayout } from "@vidstack/react/player/layouts/default";
 
 ![AI Portfolio Hero](/images/portfolio/ai-powered-portfolio/tablet-mockup-1.png "A modern chat interface seamlessly integrated into a web portfolio.")
 
@@ -46,13 +47,14 @@ I built a custom, knowledge-based AI chatbot designed to live on the client's we
 
 <MediaPlayer
   className="rounded-2xl"
-  title="AI-Powered Portfolio Demo"
   src="/videos/ai-powered-portfolio-demo.mp4"
+  title="AI-Powered Portfolio Demo"
   aspectRatio="16/9"
-  load="idle"
-  viewType="video"
-  autoPlay
   muted
+  loop
+  autoPlay
+  viewType="video"
+  load="idle"
 >
   <MediaProvider />
 </MediaPlayer>
@@ -60,7 +62,7 @@ I built a custom, knowledge-based AI chatbot designed to live on the client's we
 ### Core Capabilities
 
 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
-  <Card>
+  <Card className="rounded-4xl corner-squircle">
     <CardHeader>
       <CardTitle>Real-Time Streaming</CardTitle>
     </CardHeader>
@@ -69,7 +71,7 @@ I built a custom, knowledge-based AI chatbot designed to live on the client's we
       loader; the feedback is immediate and feels like a natural conversation.
     </CardContent>
   </Card>
-  <Card>
+  <Card lassName="rounded-4xl corner-squircle">
     <CardHeader>
       <CardTitle>Business Aware (Cost)</CardTitle>
     </CardHeader>
@@ -78,7 +80,7 @@ I built a custom, knowledge-based AI chatbot designed to live on the client's we
       cost-efficient, using lighter models for simple tasks and heavy hitters only when necessary.
     </CardContent>
   </Card>
-  <Card>
+  <Card lassName="rounded-4xl corner-squircle">
     <CardHeader>
       <CardTitle>Smart Tool Calling</CardTitle>
     </CardHeader>
@@ -87,7 +89,7 @@ I built a custom, knowledge-based AI chatbot designed to live on the client's we
       renders a **Contact Form UI** right inside the chat window.
     </CardContent>
   </Card>
-  <Card>
+  <Card lassName="rounded-4xl corner-squircle">
     <CardHeader>
       <CardTitle>Admin Summaries</CardTitle>
     </CardHeader>
@@ -184,11 +186,11 @@ The "cool factor" of this project lies in how it orchestrates different models. 
 The goal was to make people stay. And they did. By giving users a conversational way to explore the site, we transformed bounce rates into conversation rates.
 
 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-8">
-  <div className="flex flex-col items-center justify-center p-6 bg-primary/5 rounded-lg border border-primary/10">
+  <div className="corner-squircle rounded-4xl flex flex-col items-center justify-center p-6 bg-primary/5 border border-primary/10">
     <span className="text-4xl font-bold text-primary">3x</span>
     <span className="text-muted-foreground text-center mt-2">Increase in Session Duration</span>
   </div>
-  <div className="flex flex-col items-center justify-center p-6 bg-primary/5 rounded-lg border border-primary/10">
+  <div className="corner-squircle rounded-4xl flex flex-col items-center justify-center p-6 bg-primary/5 border border-primary/10">
     <span className="text-4xl font-bold text-primary">1m+</span>
     <span className="text-muted-foreground text-center mt-2">Avg. Time on Page (up from 20s)</span>
   </div>

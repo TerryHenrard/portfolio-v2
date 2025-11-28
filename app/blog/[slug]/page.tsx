@@ -7,7 +7,7 @@ export default async function BlogPost({ params }: BlogPostProps) {
 
   return (
     <section className="container m-auto border-b py-24" id={`blog-post-${slug}`}>
-      {slug}
+      Coming soon...
     </section>
   );
 }

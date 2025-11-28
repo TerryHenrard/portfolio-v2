@@ -49,7 +49,7 @@ We didn't just build a chatbot; we built a capable digital assistant. This agent
 ### Core Capabilities
 
 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
-  <Card>
+  <Card className="corner-squircle rounded-4xl">
     <CardHeader>
       <CardTitle>Polyglot Genius</CardTitle>
     </CardHeader>
@@ -58,7 +58,7 @@ We didn't just build a chatbot; we built a capable digital assistant. This agent
       language barriers standing in the way of support.
     </CardContent>
   </Card>
-  <Card>
+  <Card className="corner-squircle rounded-4xl">
     <CardHeader>
       <CardTitle>Deep Knowledge (RAG)</CardTitle>
     </CardHeader>
@@ -67,7 +67,7 @@ We didn't just build a chatbot; we built a capable digital assistant. This agent
       documentation, instantly finding answers buried in PDFs or manuals.
     </CardContent>
   </Card>
-  <Card>
+  <Card className="corner-squircle rounded-4xl">
     <CardHeader>
       <CardTitle>Human-in-the-Loop</CardTitle>
     </CardHeader>
@@ -76,7 +76,7 @@ We didn't just build a chatbot; we built a capable digital assistant. This agent
       the work, but you pull the trigger.
     </CardContent>
   </Card>
-  <Card>
+  <Card className="corner-squircle rounded-4xl">
     <CardHeader>
       <CardTitle>Action Oriented</CardTitle>
     </CardHeader>
@@ -187,14 +187,14 @@ public async Task<List<DocumentChunk>> RetrieveAndRerankAsync(string userQuery)
 The results spoke for themselves. By deploying this agent, we managed to turn the tide during peak season.
 
 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-8">
-  <div className="flex flex-col items-center justify-center p-6 bg-primary/5 rounded-lg border border-primary/10">
+  <card className="flex flex-col items-center justify-center p-6 bg-primary/5 border border-primary/10 rounded-4xl corner-squircle">
     <span className="text-4xl font-bold text-primary">30%</span>
     <span className="text-muted-foreground text-center mt-2">Customer Tickets Automated</span>
-  </div>
-  <div className="flex flex-col items-center justify-center p-6 bg-primary/5 rounded-lg border border-primary/10">
+  </card>
+  <card className="flex flex-col items-center justify-center p-6 bg-primary/5 rounded-4xl border border-primary/10 corner-squircle">
     <span className="text-4xl font-bold text-primary">60%</span>
     <span className="text-muted-foreground text-center mt-2">Workload Reduction (Peak)</span>
-  </div>
+  </card>
 </div>
 
 ![phone mockup 2](/images/portfolio/thomas-and-piron-ai-agent/phone-mockup-2.png)

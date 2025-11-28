@@ -5,6 +5,7 @@
     "clerckx",
     "Clerckx",
     "CWFH",
+    "floorplan",
     "geist",
     "handwritted",
     "Handwritted",
@@ -28,7 +29,11 @@
     "turbopack",
     "vidstack",
     "villani",
-    "Villani"
+    "Villani",
+    "xmax",
+    "xmin",
+    "zmax",
+    "zmin"
   ],
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "cSpell.language": "en,fr"
