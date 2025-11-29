@@ -5,7 +5,7 @@ import { Calendar, Clock, LayoutGrid, User } from "lucide-react";
 import Link from "next/link";
 
 // Reuse the Project type's fields, but allow createdAt/updatedAt to be Date | string for convenience
-type ContentBadgesProps = Omit<Project, "content"> & { className?: string };
+type ContentBadgesProps = Partial<Omit<Project, "content"> & { className: string }>;
 
 function formatDate(date?: string | Date) {
   if (!date) return undefined;
@@ -37,29 +37,31 @@ export default function ContentBadges({
         </Link>
       )}
 
-      <Badge variant="secondary" className="gap-1.5">
-        <User size={14} />
-        <span>{author}</span>
-      </Badge>
+      {author && (
+        <Badge variant="secondary" className="gap-1.5">
+          <User size={14} />
+          <span>{author}</span>
+        </Badge>
+      )}
 
       {createdAt && (
         <Badge variant="secondary" className="gap-1.5">
           <Calendar size={14} />
-          <span>Created {formatDate(createdAt)}</span>
+          <span>{formatDate(createdAt)}</span>
         </Badge>
       )}
 
       {updatedAt && updatedAt !== createdAt && (
         <Badge variant="secondary" className="gap-1.5">
           <Calendar size={14} />
-          <span>Last update {formatDate(updatedAt)}</span>
+          <span>Updated {formatDate(updatedAt)}</span>
         </Badge>
       )}
 
       {readingTimeMinutes && (
         <Badge variant="secondary" className="gap-1.5">
           <Clock size={14} />
-          <span>{readingTimeMinutes} min read</span>
+          <span>{readingTimeMinutes} min</span>
         </Badge>
       )}
 

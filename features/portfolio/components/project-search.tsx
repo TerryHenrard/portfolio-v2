@@ -3,19 +3,25 @@
 import { Badge } from "@/core/components/ui/badge";
 import { Card, CardContent } from "@/core/components/ui/card";
 import { Input } from "@/core/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/core/components/ui/select";
 import type { Project } from "content-collections";
 import Fuse from "fuse.js";
-import { Search } from "lucide-react";
+import { ArrowRight, Filter, Search, X as XIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { parseAsArrayOf, parseAsString, throttle, useQueryState } from "nuqs";
 import { useEffect, useMemo, useRef, useState } from "react";
-// We don't directly import Project type here because client components can't import server-only types sometimes. Use any or infer.
+import ContentBadges from "./content-badges";
 
 export default function ProjectSearch({ projects, tags }: { projects: Project[]; tags: string[] }) {
-  // Map search UI state into URL search params with `nuqs`.
-  // - `q` - text query (string) with throttled URL updates and replace history to avoid polluting history entries.
-  // - `tags` - array of selected tags (string[]) with push history to allow back button navigation.
   const [q, setQ] = useQueryState(
     "q",
     parseAsString.withOptions({ history: "replace", shallow: true, limitUrlUpdates: throttle(300) })
@@ -24,6 +30,11 @@ export default function ProjectSearch({ projects, tags }: { projects: Project[];
   const [selectedTags, setSelectedTags] = useQueryState(
     "tags",
     parseAsArrayOf(parseAsString).withDefault([]).withOptions({ history: "push", shallow: true })
+  );
+  // Sort order state persisted in query params for back/forward support.
+  const [sortBy, setSortBy] = useQueryState(
+    "sort",
+    parseAsString.withDefault("createdAt-desc").withOptions({ history: "replace", shallow: true })
   );
   const [showSuggestions, setShowSuggestions] = useState(false);
 
@@ -40,17 +51,10 @@ export default function ProjectSearch({ projects, tags }: { projects: Project[];
       .filter((t) => (tagQuery ? t.toLowerCase().includes(tagQuery) : true));
   }, [allTags, selectedTags, tagQuery, isTagQuery]);
 
-  // NOTE: Not using an effect to show suggestions when `isTagQuery` becomes true
-  // because syncing state from an effect can cause cascading renders. Instead we
-  // update `showSuggestions` proactively in the input's onChange below when the
-  // value starts with '#' so suggestions show while typing even when the input
-  // already has focus.
-
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const listRef = useRef<HTMLUListElement | null>(null);
   const itemRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
-  // Reset activeIndex when suggestions change
   useEffect(() => {
     if (!showSuggestions || suggestions.length === 0) {
       if (activeIndex !== null) {
@@ -63,7 +67,6 @@ export default function ProjectSearch({ projects, tags }: { projects: Project[];
     }
   }, [suggestions, showSuggestions, activeIndex]);
 
-  // Ensure active item is scrolled into view
   useEffect(() => {
     if (activeIndex === null) return;
     const el = itemRefs.current[activeIndex];
@@ -72,7 +75,6 @@ export default function ProjectSearch({ projects, tags }: { projects: Project[];
 
   const fuseOptions = useMemo(
     () => ({
-      // Define which keys to search and give title higher weight.
       keys: [
         { name: "title", weight: 0.6 },
         { name: "description", weight: 0.3 },
@@ -90,9 +92,6 @@ export default function ProjectSearch({ projects, tags }: { projects: Project[];
   const fuse = useMemo(() => new Fuse(projects ?? [], fuseOptions), [projects, fuseOptions]);
 
   const filteredProjects = useMemo(() => {
-    // When typing a tag (query starting with '#'), we DON'T run the full text search
-    // This avoids showing 0 projects while browsing tags — instead we show all projects
-    // (or filter by selectedTags only) so users can continue browsing
     if (isTagQuery) {
       return projects.filter((p) => {
         const selTags = selectedTags ?? [];
@@ -103,7 +102,6 @@ export default function ProjectSearch({ projects, tags }: { projects: Project[];
     const searchQuery = (q ?? "").trim();
     const selTags = selectedTags ?? [];
 
-    // If there's no text query, return projects (filtered by tags).
     if (!searchQuery) {
       return projects.filter((p) => {
         const inTags =
@@ -125,6 +123,58 @@ export default function ProjectSearch({ projects, tags }: { projects: Project[];
     });
   }, [projects, q, selectedTags, isTagQuery, fuse]);
 
+  const sortedProjects = useMemo(() => {
+    const list = [...filteredProjects];
+    switch (sortBy) {
+      case "createdAt-asc": {
+        return list.sort((a, b) => {
+          const av = a.createdAt;
+          const bv = b.createdAt;
+          if (av === bv) return 0;
+          return av > bv ? 1 : -1;
+        });
+      }
+      case "createdAt-desc": {
+        return list.sort((a, b) => {
+          const av = a.createdAt;
+          const bv = b.createdAt;
+          if (av === bv) return 0;
+          return bv > av ? 1 : -1;
+        });
+      }
+      case "updatedAt-asc": {
+        return list.sort((a, b) => {
+          const av = a.updatedAt;
+          const bv = b.updatedAt;
+          if (av === bv) return 0;
+          return av > bv ? 1 : -1;
+        });
+      }
+      case "updatedAt-desc": {
+        return list.sort((a, b) => {
+          const av = a.updatedAt;
+          const bv = b.updatedAt;
+          if (av === bv) return 0;
+          return bv > av ? 1 : -1;
+        });
+      }
+      case "readingTime-asc":
+        return list.sort(
+          (a, b) => (a.readingTimeMinutes ?? Infinity) - (b.readingTimeMinutes ?? Infinity)
+        );
+      case "readingTime-desc":
+        return list.sort(
+          (a, b) => (b.readingTimeMinutes ?? -Infinity) - (a.readingTimeMinutes ?? -Infinity)
+        );
+      case "title-asc":
+        return list.sort((a, b) => a.title.localeCompare(b.title));
+      case "title-desc":
+        return list.sort((a, b) => b.title.localeCompare(a.title));
+      default:
+        return list;
+    }
+  }, [filteredProjects, sortBy]);
+
   function addTag(tag: string) {
     const selTags = selectedTags ?? [];
     if (!selTags.includes(tag)) setSelectedTags((s) => [...(s ?? []), tag]);
@@ -138,64 +188,90 @@ export default function ProjectSearch({ projects, tags }: { projects: Project[];
 
   return (
     <div className="w-full flex flex-col gap-8">
-      <div className="max-w-3xl mx-auto flex flex-col gap-4">
+      <div className="max-w-3xl w-full mx-auto flex flex-col gap-4">
         <div className="relative">
           <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
             <Search size={18} className="text-muted-foreground" />
           </div>
-          <Input
-            id="project-search-input"
-            type="text"
-            aria-label="Search projects"
-            placeholder="Search projects or type # to browse tags"
-            value={q ?? ""}
-            onChange={(e) => {
-              const value = e.target.value || null;
-              setQ(value);
-              const valueStr = (value ?? "").toString();
-              if (valueStr.trim().startsWith("#")) setShowSuggestions(true);
-            }}
-            onFocus={() => setShowSuggestions(true)}
-            onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                if (isTagQuery) {
-                  const exact = allTags.find((t) => t.toLowerCase() === tagQuery);
-                  if (exact) addTag(exact);
+          <div className="flex items-center gap-3">
+            <Input
+              id="project-search-input"
+              type="text"
+              aria-label="Search projects"
+              placeholder="Search projects or type # to browse tags"
+              value={q ?? ""}
+              onChange={(e) => {
+                const value = e.target.value || null;
+                setQ(value);
+                const valueStr = (value ?? "").toString();
+                if (valueStr.trim().startsWith("#")) setShowSuggestions(true);
+              }}
+              onFocus={() => setShowSuggestions(true)}
+              onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  if (isTagQuery) {
+                    const exact = allTags.find((t) => t.toLowerCase() === tagQuery);
+                    if (exact) addTag(exact);
+                  }
+                  // for non-tag queries we allow the default behavior — nothing special here
                 }
-                // for non-tag queries we allow the default behavior — nothing special here
-              }
-              if (isTagQuery && showSuggestions && suggestions.length > 0) {
-                if (e.key === "ArrowDown") {
-                  e.preventDefault();
-                  setActiveIndex((prev) => {
-                    if (prev === null) return 0;
-                    return (prev + 1) % suggestions.length;
-                  });
+                if (isTagQuery && showSuggestions && suggestions.length > 0) {
+                  if (e.key === "ArrowDown") {
+                    e.preventDefault();
+                    setActiveIndex((prev) => {
+                      if (prev === null) return 0;
+                      return (prev + 1) % suggestions.length;
+                    });
+                  }
+                  if (e.key === "ArrowUp") {
+                    e.preventDefault();
+                    setActiveIndex((prev) => {
+                      if (prev === null) return suggestions.length - 1;
+                      return (prev - 1 + suggestions.length) % suggestions.length;
+                    });
+                  }
+                  if (e.key === "Escape") {
+                    setShowSuggestions(false);
+                  }
+                  if (e.key === "Enter" && activeIndex !== null) {
+                    e.preventDefault();
+                    addTag(suggestions[activeIndex]);
+                  }
                 }
-                if (e.key === "ArrowUp") {
-                  e.preventDefault();
-                  setActiveIndex((prev) => {
-                    if (prev === null) return suggestions.length - 1;
-                    return (prev - 1 + suggestions.length) % suggestions.length;
-                  });
-                }
-                if (e.key === "Escape") {
-                  setShowSuggestions(false);
-                }
-                if (e.key === "Enter" && activeIndex !== null) {
-                  e.preventDefault();
-                  addTag(suggestions[activeIndex]);
-                }
-              }
-            }}
-            role="combobox"
-            aria-controls="tag-suggestion-list"
-            aria-expanded={showSuggestions}
-            aria-activedescendant={activeIndex !== null ? `tag-option-${activeIndex}` : undefined}
-            aria-autocomplete="list"
-            className="w-full pl-10 h-12.5 pr-3 py-3 rounded-4xl corner-squircle border border-input bg-background text-foreground placeholder:text-muted-foreground"
-          />
+              }}
+              role="combobox"
+              aria-controls="tag-suggestion-list"
+              aria-expanded={showSuggestions}
+              aria-activedescendant={activeIndex !== null ? `tag-option-${activeIndex}` : undefined}
+              aria-autocomplete="list"
+              className="flex-1 pl-10 h-12.5 pr-3 py-3 rounded-4xl corner-squircle border border-input bg-background text-foreground placeholder:text-muted-foreground"
+            />
+
+            <Select value={sortBy ?? "createdAt-desc"} onValueChange={(v) => setSortBy(v)}>
+              <SelectTrigger className="p-6 rounded-4xl corner-squircle cursor-pointer ">
+                <Filter size={18} className="mr-2 -ml-2 text-muted-foreground" />
+                <SelectValue placeholder="Sort" />
+              </SelectTrigger>
+              <SelectContent className="rounded-4xl corner-squircle">
+                <SelectGroup>
+                  <SelectLabel>Sort projects</SelectLabel>
+                  <SelectItem value="createdAt-desc">Created (newest)</SelectItem>
+                  <SelectItem value="createdAt-asc">Created (oldest)</SelectItem>
+                  <SelectItem value="updatedAt-desc">Updated (newest)</SelectItem>
+                  <SelectItem value="updatedAt-asc">Updated (oldest)</SelectItem>
+                  <SelectItem value="readingTime-desc">Reading time (longest)</SelectItem>
+                  <SelectItem value="readingTime-asc">Reading time (shortest)</SelectItem>
+                  <SelectItem value="title-asc">
+                    Title (A <ArrowRight className="text-white" /> Z)
+                  </SelectItem>
+                  <SelectItem value="title-desc">
+                    Title (Z <ArrowRight className="text-white" /> A)
+                  </SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
 
           {/* Tag suggestions dropdown */}
           {showSuggestions && suggestions.length > 0 && (
@@ -234,22 +310,47 @@ export default function ProjectSearch({ projects, tags }: { projects: Project[];
           )}
         </div>
 
+        {/* Selected tags (show all currently selected tags so users can remove any of them) */}
         <div className="flex gap-2 flex-wrap">
-          {allTags.slice(0, 10).map((tag) => (
+          {(selectedTags ?? []).map((tag) => (
             <Badge
-              key={tag}
-              variant={(selectedTags ?? []).includes(tag) ? "default" : "outline"}
-              className="px-3 py-1 text-sm cursor-pointer "
-              onClick={() => ((selectedTags ?? []).includes(tag) ? removeTag(tag) : addTag(tag))}
+              key={`selected-${tag}`}
+              variant="default"
+              className="px-3 py-1 text-sm flex items-center gap-2"
             >
-              #{tag}
+              <span>#{tag}</span>
+              <button
+                type="button"
+                aria-label={`Remove tag ${tag}`}
+                onClick={() => removeTag(tag)}
+                className="inline-flex items-center justify-center p-0.5 rounded-full hover:bg-muted/20"
+              >
+                <XIcon size={12} />
+              </button>
             </Badge>
           ))}
         </div>
+
+        {/* Top tags */}
+        <div className="flex gap-2 flex-wrap">
+          {allTags
+            .slice(0, 10)
+            .filter((t) => !(selectedTags ?? []).includes(t))
+            .map((tag) => (
+              <Badge
+                key={tag}
+                variant={(selectedTags ?? []).includes(tag) ? "default" : "outline"}
+                className="px-3 py-1 text-sm cursor-pointer "
+                onClick={() => ((selectedTags ?? []).includes(tag) ? removeTag(tag) : addTag(tag))}
+              >
+                #{tag}
+              </Badge>
+            ))}
+        </div>
       </div>
 
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 md:auto-rows-[28rem] md:grid-cols-3">
-        {filteredProjects.map((project, index) => (
+      <div className="mx-auto grid grid-cols-1 gap-4 md:auto-rows-[28rem] md:grid-cols-3">
+        {sortedProjects.map((project, index) => (
           <Link
             href={`/portfolio/${project._meta.path}`}
             key={project.title}
@@ -257,7 +358,10 @@ export default function ProjectSearch({ projects, tags }: { projects: Project[];
           >
             <Card className="h-full p-0 overflow-hidden relative group">
               <CardContent className="px-6 flex flex-col gap-2 pt-6 pb-4 text-left z-10 bg-card/70 backdrop-blur-sm group-hover:opacity-0 opacity-100 transition-all duration-300 group-hover:-translate-y-10">
-                <h3 className="text-foreground text-lg font-semibold font-mono">{project.title}</h3>
+                <h3 className="text-foreground text-lg font-semibold font-mono flex justify-between flex-wrap">
+                  {project.title}
+                  <ContentBadges readingTimeMinutes={project.readingTimeMinutes} className="mb-0" />
+                </h3>
                 <p className="text-muted-foreground">{project.description}</p>
               </CardContent>
               <Image
@@ -271,7 +375,7 @@ export default function ProjectSearch({ projects, tags }: { projects: Project[];
         ))}
       </div>
 
-      {filteredProjects.length === 0 && (
+      {sortedProjects.length === 0 && (
         <div className="text-center text-muted-foreground py-12">
           No projects match your search.
         </div>

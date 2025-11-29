@@ -53,7 +53,7 @@ export function DesktopNavigationMenu() {
           if (item.title === "Projects") {
             return (
               <NavigationMenuItem key={item.title}>
-                <NavigationMenuTrigger>
+                <NavigationMenuTrigger className={"bg-transparent"}>
                   <Link className="bg-transparent" href={item.href}>
                     {item.title}
                   </Link>
