@@ -1,0 +1,220 @@
+---
+title: "AI Powered SaaS Dashboard"
+description: "Experience the development of an AI-powered dashboard for the B2B SaaS application of VISIT ME."
+author: "Terry Henrard"
+createdAt: "2022-8-2"
+updatedAt: "2025-11-24"
+tags: ["AI", "SaaS", "Dashboard", "Analytics", "Real Estate", "Python", "MySQL", "Next.js", "B2B"]
+category: "portfolio"
+readingTimeMinutes: 5
+coverImagePath: "/images/portfolio/visit-me-ai-powered-saas-dashboard/laptop-mockup-1.png"
+coverImageAlt: "Visit Me Powered SaaS Dashboard Laptop Mockup"
+---
+
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/core/components/ui/accordion";
+import { Alert, AlertDescription, AlertTitle } from "@/core/components/ui/alert";
+import { Badge } from "@/core/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/core/components/ui/card";
+import { MediaPlayer, MediaProvider } from "@vidstack/react";
+import { BrainCircuit, LineChart, Terminal, Users } from "lucide-react";
+
+![Visit Me SaaS Dashboard Laptop Mockup](/images/portfolio/visit-me-ai-powered-saas-dashboard/laptop-mockup-1.png "Hero image showcasing the Visit Me analytics dashboard.")
+
+# The "Naked Link" Problem
+
+There is a massive gap between delivering a service and delivering a product. VISIT ME, a premier creator of 3D virtual tours for real estate, found themselves stuck in that gap.
+
+They were creating stunning, high-definition digital twins of properties, but the delivery method was underwhelming: a simple, naked URL sent via email.
+
+For the real estate agencies paying for these tours, it was a "Black Box." They had no way to organize their portfolio, no insight into who was watching, and zero analytics to prove ROI to _their_ sellers. The user experience felt disconnected, and valuable data was evaporating into the ether.
+
+We needed to stop just sending links and start delivering **intelligence**.
+
+## Contents
+
+## The Solution: A B2B Powerhouse
+
+The goal was to transform VISIT ME from a service provider into a SaaS platform. I built a centralized ecosystem where agencies can't just "see" their tours—they can manage, analyze, and optimize them.
+
+<MediaPlayer
+  className="rounded-2xl"
+  src="/videos/visit-me-ai-powered-saas-dashboard.mp4"
+  title="AI-Powered Portfolio Demo"
+  aspectRatio="16/9"
+  muted
+  loop
+  autoPlay
+  load="idle"
+  viewType="video"
+>
+  <MediaProvider />
+</MediaPlayer>
+
+### Key Features
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+  <Card>
+    <CardHeader>
+      <CardTitle className="flex items-center gap-2">
+        <LineChart className="w-5 h-5" />
+        High-Precision Analytics
+      </CardTitle>
+    </CardHeader>
+    <CardContent>
+      Standard web analytics weren't enough. We track behavior <em>inside</em> the 3D
+      environment—measuring session duration, specific viewpoints visited, and user navigation
+      patterns.
+    </CardContent>
+  </Card>
+  <Card>
+    <CardHeader>
+      <CardTitle className="flex items-center gap-2">
+        <BrainCircuit className="w-5 h-5" />
+        AI-Powered Insights
+      </CardTitle>
+    </CardHeader>
+    <CardContent>
+      The system doesn't just collect data; it interprets it. We implemented AI scoring to rate
+      listing performance and offer automated suggestions to improve the customer journey.
+    </CardContent>
+  </Card>
+  <Card>
+    <CardHeader>
+      <CardTitle className="flex items-center gap-2">
+        <Users className="w-5 h-5" />
+        Collaborative Management
+      </CardTitle>
+    </CardHeader>
+    <CardContent>
+      Real estate is a team sport. Agencies can now manage documents, 3D assets, and client
+      communications in a real-time collaborative environment.
+    </CardContent>
+  </Card>
+  <Card>
+    <CardHeader>
+      <CardTitle className="flex items-center gap-2">
+        <Terminal className="w-5 h-5" />
+        Automated Operations
+      </CardTitle>
+    </CardHeader>
+    <CardContent>
+      To reduce administrative drag, the platform handles automated invoicing and billing
+      management, freeing up the VISIT ME team to focus on quality.
+    </CardContent>
+  </Card>
+</div>
+
+## Under the Hood
+
+Next.js gives us the best of both worlds: modern framework features paired with raw, optimized performance. For this project, we used Next.js for the frontend (leveraging server-rendering and edge optimizations where appropriate) while the analytics backend ran on Python, all deployed on a custom VPS architecture for speed and reliability.
+
+![Dashboard Overview 2](/images/portfolio/visit-me-ai-powered-saas-dashboard/architecture-diagram.png)
+
+<div className="flex flex-wrap gap-2 my-4">
+  <Badge variant="secondary">Python 3.15</Badge>
+  <Badge variant="secondary">Next.js</Badge>
+  <Badge variant="secondary">MySQL</Badge>
+  <Badge variant="secondary">Linux VPS</Badge>
+  <Badge variant="secondary">OpenAI API</Badge>
+</div>
+
+### The Challenge: Tracking the "Un-trackable"
+
+The hardest technical nut to crack was tracking user behavior _inside_ a 3D canvas (WebGL). Unlike a standard website where users click links to change pages, a user in a 3D tour stays on the same URL while "walking" through a house.
+
+Standard analytics tools see this as a single page view. We needed to know if they looked at the kitchen or the garden.
+
+I engineered a custom event listener system that hooks into the 3D engine's coordinate system to generate "spatial heatmaps."
+
+```python
+# Validates and maps coords into floorplan regions, then aggregates time per region.
+class Movement(BaseModel):
+  x: float
+  z: float
+  time: int  # unix milliseconds
+
+class Payload(BaseModel):
+  tour_id: str
+  movements: List[Movement]
+
+REGIONS = [
+  {"id":"kitchen","xmin":10,"xmax":20,"zmin":0,"zmax":8},
+  {"id":"garden","xmin":0,"xmax":20,"zmin":8,"zmax":20},
+]
+
+def map_to_region(x: float, z: float):
+  for r in REGIONS:
+    if r["xmin"] <= x <= r["xmax"] and r["zmin"] <= z <= r["zmax"]:
+      return r["id"]
+  return "unknown"
+
+
+@app.post("/api/analytics/spatial-track")
+async def spatial_track(payload: Payload):
+  totals = {}
+  for i in range(len(payload.movements) - 1):
+    cur, nxt = payload.movements[i], payload.movements[i + 1]
+    region = map_to_region(cur.x, cur.z)
+    dt_ms = max(0, nxt.time - cur.time)
+    totals[region] = totals.get(region, 0) + dt_ms
+  return {"tour_id": payload.tour_id, "region_ms": totals}
+```
+
+<Accordion type="single" collapsible className="w-full not-prose my-6">
+  <AccordionItem value="data-processing">
+    <AccordionTrigger>How we process the data?</AccordionTrigger>
+    <AccordionContent>
+      On the backend (Python), these coordinates are mapped against the floorplan. This allows us to
+      generate reports saying "Users spent 40% of their time in the Master Bedroom," rather than
+      just generic "Time on Page" metrics.
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="data-privacy">
+    <AccordionTrigger>Data privacy & anonymisation</AccordionTrigger>
+    <AccordionContent>
+      We treat session IDs as ephemeral; personally-identifiable information is removed or hashed
+      before persistence. We also sample or redact precise positions where privacy concerns are high
+      and expose aggregated metrics only on the UI.
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="scaling">
+    <AccordionTrigger>Scaling & reliability</AccordionTrigger>
+    <AccordionContent>
+      Events are enqueued and processed by background workers to avoid blocking the UI. Batch
+      writes, idempotent inserts, and retry strategies ensure the system remains resilient under
+      load.
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+
+## The Impact
+
+The shift from "sending links" to "providing a platform" was a game changer for VISIT ME. The perceived value of their service skyrocketed, turning them from a vendor into a tech partner.
+
+<div className="grid grid-cols-1 sm:grid-cols-3 gap-4 my-8">
+  <div className="flex flex-col items-center justify-center p-6 bg-primary/5 rounded-lg border border-primary/10">
+    <span className="text-4xl font-bold text-primary">+15%</span>
+    <span className="text-muted-foreground text-center mt-2">New Client Rate</span>
+  </div>
+  <div className="flex flex-col items-center justify-center p-6 bg-primary/5 rounded-lg border border-primary/10">
+    <span className="text-4xl font-bold text-primary">10h</span>
+    <span className="text-muted-foreground text-center mt-2">Saved Per Week</span>
+  </div>
+  <div className="flex flex-col items-center justify-center p-6 bg-primary/5 rounded-lg border border-primary/10">
+    <span className="text-4xl font-bold text-primary">100%</span>
+    <span className="text-muted-foreground text-center mt-2">Data Transparency</span>
+  </div>
+</div>
+
+![Dashboard Overview 2](/images/portfolio/visit-me-ai-powered-saas-dashboard/laptop-mockup-2.png)
+
+## Conclusion
+
+This project illustrated that innovation isn't just about which JavaScript framework you choose—it's about solving the visibility problem. By using Next.js for the front-end and building a custom analytics engine on a reliable stack, we gave VISIT ME and their clients the one thing they were missing: clarity.
+
+Now, every virtual step a potential buyer takes is a data point that helps sell a home. 🏠
