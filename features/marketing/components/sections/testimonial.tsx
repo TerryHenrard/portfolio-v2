@@ -5,24 +5,22 @@ import { TestimonialCard, type TestimonialProps } from "../testimonial-card";
 const testimonials: TestimonialProps[] = [
   {
     quote:
-      "Alicia Smith is an outstanding developer. She understood our needs right away and delivered a website that exceeded expectations. Great communication, attention to detail, and top-notch skills. Highly recommended!",
-    highlightedText: "outstanding developer",
+      "Terry transformed our complex needs into cost-effective AI tools. A smooth collaboration thanks to his down-to-earth approach and responsiveness. Highly recommended for his expertise and dedication!",
+    highlightedText: "cost-effective AI tools",
     author: {
-      name: "Peter Norris",
-      role: "Founder at Acme Inc.",
-      image:
-        "https://shadcndesign-dev-portfolio-template.vercel.app/home_team-section_peter_norris.png",
+      name: "Michel Villani",
+      role: "Head of Engineering and R&D at Thomas & Piron",
+      image: "/images/marketing/michel-villani-avatar.png",
     },
   },
   {
     quote:
-      "Alicia Smith is a fantastic developer. She understood our needs and delivered a website that exceeded our expectations. Her communication and attention to detail are outstanding. I highly recommend her!",
-    highlightedText: "exceeded our expectations",
+      "Terry delivered a premium AI dashboard that shows to our clients real business profits at a glance. This upgrade improved our retention significantly. I highly recommend Terry for high-impact solutions.",
+    highlightedText: "real business profits at a glance",
     author: {
-      name: "Ann Helfer",
-      role: "Founder at Design Stars",
-      image:
-        "https://shadcndesign-dev-portfolio-template.vercel.app/home_team-section_ann_helfer.png",
+      name: "Alain Clerckx",
+      role: "Founder and CEO at VISIT ME",
+      image: "/images/marketing/alain-clerckx-avatar.png",
     },
   },
 ];

@@ -3,6 +3,7 @@ import { Contact } from "@/features/marketing/components/sections/contact";
 import { Faq } from "@/features/marketing/components/sections/faq";
 import { Hero } from "@/features/marketing/components/sections/hero";
 import { Portfolio } from "@/features/marketing/components/sections/portfolio";
+import Subscribe from "@/features/marketing/components/sections/subscribe";
 import { Testimonial } from "@/features/marketing/components/sections/testimonial";
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
       <About />
       <Testimonial />
       <Contact />
+      <Subscribe />
       <Faq />
     </div>
   );

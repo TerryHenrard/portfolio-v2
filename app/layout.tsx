@@ -5,6 +5,7 @@ import { PropsWithChildren } from "react";
 
 import { Footer } from "@/features/marketing/components/footer";
 import { Header } from "@/features/marketing/components/header";
+import "@vidstack/react/player/styles/base.css";
 import "./globals.css";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
   return (
-    <html lang="fr" suppressHydrationWarning id="home">
+    <html lang="fr" suppressHydrationWarning>
       <body
         className={`${geist.className} ${geistMono.variable} ${dancingScript.variable} antialiased`}
       >

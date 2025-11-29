@@ -1,0 +1,228 @@
+---
+title: "Realtime AI Agent"
+description: "Dive into the implementation of an AI agent for the customer service department of Thomas & Piron."
+author: "Terry Henrard"
+createdAt: "2025-3-19"
+updatedAt: "2025-11-24"
+tags:
+  [
+    "AI",
+    "RAG",
+    "Vector DB",
+    "Azure OpenAI",
+    "Azure",
+    "QDrant",
+    ".NET 9",
+    "C#",
+    "Customer Support",
+    "Human-in-the-Loop",
+    "Ingestion",
+    "OCR",
+    "Reranking",
+    "Embeddings",
+    "React",
+    "TypeScript",
+    "Multi-Model Routing",
+    "Streaming",
+    "Vector Search",
+    "B2C",
+  ]
+category: "portfolio"
+readingTimeMinutes: 5
+coverImagePath: "/images/portfolio/thomas-and-piron-ai-agent/phone-mockup-1.png"
+coverImageAlt: "Thomas & Piron AI Agent Phone Mockup"
+---
+
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/core/components/ui/accordion";
+import { Badge } from "@/core/components/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/core/components/ui/card";
+import { Separator } from "@/core/components/ui/separator";
+
+![phone mockup 1](/images/portfolio/thomas-and-piron-ai-agent/phone-mockup-1.png "Hero image showcasing
+the AI agent on a mobile device.")
+
+# The "Firehose" Problem
+
+Imagine being the _only_ person standing between a mountain of customer inquiries and a peaceful day at the office. That was the reality for the customer service lead at Thomas & Piron during peak activity periods.
+
+The phone wouldn't stop ringing, the inbox was overflowing, and frustration was mounting—both for the customers waiting for answers and the team trying to provide them. High churn was becoming a real threat, and burnout was looming.
+
+We needed a solution. Not just a band-aid, but a **digital reinforcement**.
+
+## Contents
+
+## Enter the AI Agent
+
+We didn't just build a chatbot; we built a capable digital assistant. This agent wasn't designed to replace the human touch but to handle the heavy lifting so the human team could focus on what really matters.
+
+![AI Agent Dashboard](/images/portfolio/thomas-and-piron-ai-agent/dashboard-mockup-1.png)
+
+### Core Capabilities
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+  <Card className="corner-squircle rounded-4xl">
+    <CardHeader>
+      <CardTitle>Polyglot Genius</CardTitle>
+    </CardHeader>
+    <CardContent>
+      The agent understands natural language in **English, French, Dutch**, and more. No more
+      language barriers standing in the way of support.
+    </CardContent>
+  </Card>
+  <Card className="corner-squircle rounded-4xl">
+    <CardHeader>
+      <CardTitle>Deep Knowledge (RAG)</CardTitle>
+    </CardHeader>
+    <CardContent>
+      For simple queries, it performs Retrieval-Augmented Generation (RAG) on internal
+      documentation, instantly finding answers buried in PDFs or manuals.
+    </CardContent>
+  </Card>
+  <Card className="corner-squircle rounded-4xl">
+    <CardHeader>
+      <CardTitle>Human-in-the-Loop</CardTitle>
+    </CardHeader>
+    <CardContent>
+      For complex or sensitive actions, the agent pauses and asks for human approval. It prepares
+      the work, but you pull the trigger.
+    </CardContent>
+  </Card>
+  <Card className="corner-squircle rounded-4xl">
+    <CardHeader>
+      <CardTitle>Action Oriented</CardTitle>
+    </CardHeader>
+    <CardContent>
+      It doesn't just talk; it *does*. It can create tickets directly in the CRM and schedule calls
+      in the human agent's calendar.
+    </CardContent>
+  </Card>
+</div>
+
+### Code Highlight: The "Human-in-the-Loop" Pattern
+
+One of the most critical features was ensuring the AI didn't go rogue. Here is a simplified snippet of how we defined a Semantic Kernel function that requires human approval before finalizing an action.
+
+```csharp showLineNumbers
+[KernelFunction, Description("Schedules a meeting with a human agent.")]
+public async Task<string> ScheduleMeetingAsync(
+    [Description("The email of the customer")] string customerEmail,
+    [Description("The preferred date and time")] DateTime preferredTime
+)
+{
+    // 1. Check availability
+    if (!await _calendarService.IsAvailableAsync(preferredTime))
+    {
+        return "Slot not available. Please suggest another time.";
+    }
+
+    // 2. Create a 'Pending' appointment requiring approval
+    var appointmentId = await _crmService.CreatePendingAppointmentAsync(
+        customerEmail,
+        preferredTime,
+        requiresApproval: true
+    );
+
+    // 3. Notify the human agent
+    await _notificationService.SendApprovalRequestAsync(appointmentId);
+
+    return $"Meeting request created (ID: {appointmentId}). Waiting for agent approval.";
+}
+```
+
+## Under the Hood: The Tech Stack
+
+I served as the **Full-Stack Developer** on this project, handling everything from the React frontend to the .NET backend. Here is the arsenal we used:
+
+<div className="flex flex-wrap gap-2 my-4">
+  <Badge variant="secondary">Azure OpenAI Services</Badge>
+  <Badge variant="secondary">React (TypeScript)</Badge>
+  <Badge variant="secondary">.NET 9 (C#)</Badge>
+  <Badge variant="secondary">QDrant (Vector DB)</Badge>
+  <Badge variant="secondary">Azure Cloud</Badge>
+</div>
+
+![System Architecture](/images/portfolio/thomas-and-piron-ai-agent/system-architecture.png)
+
+### The "Brain" (RAG Pipeline)
+
+Building a RAG system that actually works is more than just throwing text into a database. We had to get creative with ingestion and retrieval.
+
+<Accordion type="single" collapsible className="w-full not-prose">
+  <AccordionItem value="ingestion">
+    <AccordionTrigger>Multi-Format Ingestion</AccordionTrigger>
+    <AccordionContent>
+      We didn't limit the agent to text files. We built an ingestion pipeline capable of processing
+      **.pdf, .txt, .md, .docx**, and even multimedia files like **.mp3, .mp4, .jpg, .png, and
+      .jpeg**.
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="ocr">
+    <AccordionTrigger>OCR & Vision</AccordionTrigger>
+    <AccordionContent>
+      Images and scanned PDFs weren't a black box. We utilized **OCR technology** to extract text
+      from visual content, ensuring no information was left behind.
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="optimization">
+    <AccordionTrigger>Reranking & Overlap</AccordionTrigger>
+    <AccordionContent>
+      To prevent the LLM from hallucinating or missing context, we implemented **chunk overlapping**
+      (so context isn't cut off at arbitrary points) and **reranking** steps to ensure the most
+      relevant snippets are fed to the model.
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+
+```csharp showLineNumbers
+// Example of the retrieval pipeline with reranking
+public async Task<List<DocumentChunk>> RetrieveAndRerankAsync(string userQuery)
+{
+    // 1. Vector Search (Recall)
+    var embedding = await _embeddingGenerator.GenerateEmbeddingAsync(userQuery);
+    var initialResults = await _qdrantClient.SearchAsync(embedding, limit: 20);
+
+    // 2. Reranking (Precision)
+    // We use a cross-encoder model to score relevance between query and documents
+    var rerankedResults = await _reranker.RerankAsync(userQuery, initialResults);
+
+    // 3. Filter and Return Top K
+    return rerankedResults
+        .Where(r => r.RelevanceScore > 0.75)
+        .Take(5)
+        .ToList();
+}
+```
+
+## The Impact
+
+The results spoke for themselves. By deploying this agent, we managed to turn the tide during peak season.
+
+<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-8">
+  <card className="flex flex-col items-center justify-center p-6 bg-primary/5 border border-primary/10 rounded-4xl corner-squircle">
+    <span className="text-4xl font-bold text-primary">30%</span>
+    <span className="text-muted-foreground text-center mt-2">Customer Tickets Automated</span>
+  </card>
+  <card className="flex flex-col items-center justify-center p-6 bg-primary/5 rounded-4xl border border-primary/10 corner-squircle">
+    <span className="text-4xl font-bold text-primary">60%</span>
+    <span className="text-muted-foreground text-center mt-2">Workload Reduction (Peak)</span>
+  </card>
+</div>
+
+![phone mockup 2](/images/portfolio/thomas-and-piron-ai-agent/phone-mockup-2.png)
+
+## Conclusion
+
+This project wasn't just about using the latest AI buzzwords; it was about solving a real human problem with technology. We took a stressed-out support process and injected it with intelligence, efficiency, and a bit of .NET 9 magic.
+
+Now, the customer service lead can actually take a lunch break. 🥪

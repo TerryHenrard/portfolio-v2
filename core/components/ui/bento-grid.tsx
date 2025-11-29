@@ -1,5 +1,7 @@
+import { Project } from "@/content-collections";
 import { Card, CardContent } from "@/core/components/ui/card";
 import { cn } from "@/core/lib/utils";
+import ContentBadges from "@/features/portfolio/components/content-badges";
 import Image from "next/image";
 
 export const BentoGrid = ({
@@ -21,40 +23,30 @@ export const BentoGrid = ({
   );
 };
 
-interface BentoGridItemProps {
-  className?: string;
-  title: string;
-  description: string;
-  imageSrc: string;
-  imageAlt: string;
-  imageWidth: number;
-  imageHeight: number;
-}
-
-export const BentoGridItem = ({
+export const BentoGridItem = async ({
   className,
   title,
   description,
-  imageSrc,
-  imageAlt,
-  imageWidth,
-  imageHeight,
-}: BentoGridItemProps) => {
+  coverImageAlt,
+  coverImagePath,
+  readingTimeMinutes,
+}: Omit<Project, "content"> & { className?: string }) => {
   return (
-    <Card className={cn("h-full p-0 overflow-hidden", className)}>
-      <CardContent className="px-6 flex flex-col gap-2 pt-6 text-left">
-        <h3 className="text-foreground text-lg font-semibold font-mono">{title}</h3>
+    <Card className={cn("h-full p-0 overflow-hidden relative group", className)}>
+      <CardContent className="px-6 flex flex-col gap-2 pt-6 pb-4 text-left z-10 bg-card/70 backdrop-blur-sm group-hover:opacity-0 opacity-100 transition-all duration-300 group-hover:-translate-y-10">
+        <h3 className="text-foreground text-lg font-semibold font-mono flex justify-between flex-wrap">
+          {title} <ContentBadges readingTimeMinutes={readingTimeMinutes} className="mb-0" />
+        </h3>
         <p className="text-muted-foreground">{description}</p>
       </CardContent>
+      {/* <CardFooter className="relative h-full w-full"> */}
       <Image
-        alt={imageAlt}
-        width={imageWidth}
-        height={imageHeight}
-        className={`h-full w-full object-cover object-center ${
-          imageSrc.endsWith("/ai-powered-saas-dashboard.png") ? "object-bottom pb-20" : ""
-        }`}
-        src={imageSrc}
+        alt={coverImageAlt}
+        className={`h-full w-full object-cover object-center group-hover:scale-115 transition-transform duration-800 ease-in-out`}
+        src={coverImagePath}
+        fill
       />
+      {/* </CardFooter> */}
     </Card>
   );
 };

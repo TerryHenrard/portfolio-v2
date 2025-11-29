@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/core/components/ui/accordion";
+import { Badge } from "@/core/components/ui/badge";
 import { TypographyH2, TypographyLead } from "@/core/components/ui/typography";
 import { ContactMeCta } from "../contact-me-cta";
 
@@ -50,7 +51,8 @@ export function Faq() {
       <div className="container mx-auto">
         <div className="flex w-full flex-col gap-12 md:gap-16">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-            <div className="flex max-w-xl flex-col items-center text-center md:items-start md:text-left gap-4">
+            <div className="flex max-w-xl flex-col items-center text-center md:items-start md:text-left gap-5">
+              <Badge className="tracking-widest">FAQ</Badge>
               <TypographyH2>Frequently asked questions</TypographyH2>
               <TypographyLead className="text-base">
                 I've gathered the key information to help you make the most of your experience. If

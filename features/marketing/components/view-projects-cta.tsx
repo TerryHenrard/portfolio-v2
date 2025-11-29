@@ -5,7 +5,7 @@ import Link from "next/link";
 export function ViewProjectsCta({
   className,
   children = "View Projects",
-  href = "/#portfolio",
+  href = "/portfolio",
   variant = "secondary",
   size = "lg",
   asChild = true,
