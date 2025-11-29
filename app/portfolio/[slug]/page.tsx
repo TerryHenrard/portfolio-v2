@@ -1,6 +1,7 @@
 import { BentoGridItem } from "@/core/components/ui/bento-grid";
 import { TypographyH3, TypographyLead } from "@/core/components/ui/typography";
 import { ContactMeCta } from "@/features/marketing/components/contact-me-cta";
+import { SubscribeForm } from "@/features/marketing/components/subscribe-form";
 import { ViewProjectsCta } from "@/features/marketing/components/view-projects-cta";
 import ContentBadges from "@/features/portfolio/components/content-badges";
 import { allProjects } from "content-collections";
@@ -62,7 +63,7 @@ export default async function Portfolio({ params }: PortfolioProps) {
       {/* CTA section */}
       <section className="mx-auto mt-12 max-w-4xl w-full border-t pt-8 dark:border-neutral-700">
         <div className="flex flex-col-reverse items-center gap-6 md:flex-row md:justify-between">
-          <div className="text-center md:text-left">
+          <div className="max-w-sm text-center md:text-left">
             <TypographyH3>Inspired by this project?</TypographyH3>
             <TypographyLead className="mt-1">
               I can help you build something similar — let's chat about your idea and the next
@@ -77,11 +78,27 @@ export default async function Portfolio({ params }: PortfolioProps) {
         </div>
       </section>
 
+      {/* Newsletter subscription */}
+      <section className="mx-auto mt-12 max-w-4xl w-full border-t pt-8 dark:border-neutral-700">
+        <div className="flex flex-col items-center gap-6 md:flex-row-reverse md:justify-between">
+          <div className="max-w-sm text-center md:text-left">
+            <TypographyH3>Subscribe to my newsletter</TypographyH3>
+            <TypographyLead className="mt-1">
+              Get updates about new projects and occasional tips and tricks — just useful stuff.
+            </TypographyLead>
+          </div>
+
+          <div className="max-w-2xs w-full">
+            <SubscribeForm description="" />
+          </div>
+        </div>
+      </section>
+
       {/* Proposal: Read another random project */}
       {suggestedProject && (
         <section className="mx-auto mt-12 max-w-4xl w-full border-t pt-8 dark:border-neutral-700">
           <div className="gap-6">
-            <div>
+            <div className="max-w-sm text-center md:text-left">
               <TypographyH3>Read another project</TypographyH3>
               <TypographyLead className="mt-1">
                 If you'd like to explore more, here's another project you might enjoy.

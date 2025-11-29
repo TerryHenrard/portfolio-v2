@@ -12,15 +12,8 @@ import {
 import { useIsMobile } from "@/core/hooks/use-mobile";
 import { allProjects } from "content-collections";
 import Link from "next/link";
+import { menuItems } from "../lib/menu-items";
 import { ContactMeCta } from "./contact-me-cta";
-
-export const menuItems: { title: string; href: string }[] = [
-  { title: "Projects", href: "/#portfolio" },
-  { title: "About Me", href: "/#about" },
-  { title: "Blog", href: "/blog" },
-  { title: "FAQ", href: "/#faq" },
-  { title: "Contact Me", href: "/#contact" },
-];
 
 const [one, two, three, four] = allProjects;
 const sortedProjects = [three, two, one, four]; // Ensure consistent order
