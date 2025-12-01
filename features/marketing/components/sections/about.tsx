@@ -3,6 +3,7 @@ import { TypographyH2, TypographyLead } from "@/core/components/ui/typography";
 import AboutImage from "@/public/images/marketing/about.png";
 import Image from "next/image";
 import { ContactMeCta } from "../contact-me-cta";
+import { DownloadCvCta } from "../download-cv-cta";
 import { ViewProjectsCta } from "../view-projects-cta";
 
 export function About() {
@@ -22,9 +23,10 @@ export function About() {
           productivity but also elevates user satisfaction.
         </TypographyLead>
 
-        <div className="flex gap-4">
+        <div className="flex flex-wrap gap-4">
           <ContactMeCta />
           <ViewProjectsCta />
+          <DownloadCvCta variant={"outline"} />
         </div>
       </div>
     </section>
