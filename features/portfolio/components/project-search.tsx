@@ -1,7 +1,6 @@
 "use client";
 
 import { Badge } from "@/core/components/ui/badge";
-import { Card, CardContent } from "@/core/components/ui/card";
 import { Input } from "@/core/components/ui/input";
 import {
   Select,
@@ -15,11 +14,9 @@ import {
 import type { Project } from "content-collections";
 import Fuse from "fuse.js";
 import { ArrowRight, Filter, Search, X as XIcon } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
 import { parseAsArrayOf, parseAsString, throttle, useQueryState } from "nuqs";
 import { useEffect, useMemo, useRef, useState } from "react";
-import ContentBadges from "./content-badges";
+import { ProjectCard } from "./project-card";
 
 export default function ProjectSearch({ projects, tags }: { projects: Project[]; tags: string[] }) {
   const [q, setQ] = useQueryState(
@@ -351,27 +348,11 @@ export default function ProjectSearch({ projects, tags }: { projects: Project[];
 
       <div className="mx-auto grid grid-cols-1 gap-4 md:auto-rows-[28rem] md:grid-cols-3">
         {sortedProjects.map((project, index) => (
-          <Link
-            href={`/portfolio/${project._meta.path}`}
+          <ProjectCard
             key={project.title}
             className={index === 0 || index === 3 ? "md:col-span-2" : ""}
-          >
-            <Card className="h-full p-0 overflow-hidden relative group">
-              <CardContent className="px-6 flex flex-col gap-2 pt-6 pb-4 text-left z-10 bg-card/70 backdrop-blur-sm group-hover:opacity-0 opacity-100 transition-all duration-300 group-hover:-translate-y-10">
-                <h3 className="text-foreground text-lg font-semibold font-mono flex justify-between flex-wrap">
-                  {project.title}
-                  <ContentBadges readingTimeMinutes={project.readingTimeMinutes} className="mb-0" />
-                </h3>
-                <p className="text-muted-foreground">{project.description}</p>
-              </CardContent>
-              <Image
-                alt={project.coverImageAlt}
-                className={`h-full w-full object-cover object-center group-hover:scale-115 transition-transform duration-800 ease-in-out`}
-                src={project.coverImagePath}
-                fill
-              />
-            </Card>
-          </Link>
+            {...project}
+          />
         ))}
       </div>
 
