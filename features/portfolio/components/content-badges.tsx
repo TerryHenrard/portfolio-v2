@@ -66,11 +66,16 @@ export default function ContentBadges({
       )}
 
       {tags &&
-        tags.map((tag) => (
-          <Badge key={tag} variant="secondary" className="gap-1.5">
-            {tag}
-          </Badge>
-        ))}
+        tags.map((tag, index) => {
+          const uriEncodedTag = encodeURIComponent(tag);
+          return (
+            <Link key={`tag-${index}`} href={`/portfolio?tags=${uriEncodedTag}`} className="group">
+              <Badge variant="secondary" className="gap-1.5">
+                <span className="group-hover:underline">#{tag}</span>
+              </Badge>
+            </Link>
+          );
+        })}
     </div>
   );
 }

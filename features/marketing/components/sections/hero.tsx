@@ -19,7 +19,7 @@ export function Hero() {
             Bringing your ideas to life with clean, efficient, and scalable code. Whether it's
             building web apps, optimizing performance, or solving complex technical challenges.
           </TypographyLead>
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-4">
             <ContactMeCta />
             <ViewProjectsCta />
           </div>

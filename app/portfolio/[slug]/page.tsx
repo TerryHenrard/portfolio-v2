@@ -1,11 +1,10 @@
-import { BentoGridItem } from "@/core/components/ui/bento-grid";
 import { TypographyH3, TypographyLead } from "@/core/components/ui/typography";
 import { ContactMeCta } from "@/features/marketing/components/contact-me-cta";
 import { SubscribeForm } from "@/features/marketing/components/subscribe-form";
 import { ViewProjectsCta } from "@/features/marketing/components/view-projects-cta";
 import ContentBadges from "@/features/portfolio/components/content-badges";
+import { ProjectCard } from "@/features/portfolio/components/project-card";
 import { allProjects } from "content-collections";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export const dynamicParams = false;
@@ -106,10 +105,7 @@ export default async function Portfolio({ params }: PortfolioProps) {
             </div>
 
             <div className="not-prose w-full max-w-3xl">
-              <Link href={`/portfolio/${suggestedProject._meta.path}`} className="block">
-                {/* BentoGridItem accepts props and an optional className; make it look right on this layout */}
-                <BentoGridItem {...suggestedProject} className="h-120 md:h-96" />
-              </Link>
+              <ProjectCard {...suggestedProject} className="h-120 md:h-96" />
             </div>
           </div>
         </section>

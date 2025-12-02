@@ -1,5 +1,6 @@
 import { defineCollection, defineConfig } from "@content-collections/core";
 import { z } from "zod";
+// TODO: Projects "plugin hackathon"
 
 const projectSchema = z.object({
   title: z.string(),

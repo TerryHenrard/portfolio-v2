@@ -4,6 +4,7 @@ import { Linkedin, Mail, Phone } from "lucide-react";
 import Link from "next/link";
 import { menuItems } from "../lib/menu-items";
 import { ContactMeCta } from "./contact-me-cta";
+import { DownloadCvCta } from "./download-cv-cta";
 import { Handwritted } from "./handwritted";
 import { SubscribeForm } from "./subscribe-form";
 
@@ -79,6 +80,7 @@ export function Footer() {
                 </Link>
               </Button>
             ))}
+            <DownloadCvCta iconOnly />
           </div>
         </div>
         <div className="flex flex-col items-center justify-between gap-12 text-center md:gap-6 lg:flex-row lg:text-left">
