@@ -1,6 +1,6 @@
 import { Button } from "@/core/components/ui/button";
 import { Copyright } from "@/core/components/ui/copyright";
-import { Linkedin, Mail, Phone } from "lucide-react";
+import { Github, Linkedin, Mail, Phone } from "lucide-react";
 import Link from "next/link";
 import { menuItems } from "../lib/menu-items";
 import { ContactMeCta } from "./contact-me-cta";
@@ -18,8 +18,14 @@ const socialLinks = [
   },
   {
     href: "https://www.linkedin.com/in/terry-henrard/",
-    label: "Join me on LinkedIn",
+    label: "Connect with me LinkedIn",
     Icon: Linkedin,
+    external: true,
+  },
+  {
+    href: "https://github.com/TerryHenrard",
+    label: "Join me on GitHub",
+    Icon: Github,
     external: true,
   },
 ];
@@ -32,7 +38,7 @@ const legalLinks = [
 
 export function Footer() {
   return (
-    <footer className="py-24 container mx-auto">
+    <footer className="py-24 container mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col gap-12 lg:gap-16">
         <div className="relative flex flex-col items-center gap-12 md:items-center md:justify-between lg:flex-row lg:gap-8">
           <Link href="/" aria-label="Go to homepage">
@@ -41,16 +47,30 @@ export function Footer() {
             </div>
           </Link>
           <nav
-            className="flex flex-col items-center gap-1 lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:flex-row"
+            className="flex flex-col items-center gap-1 lg:absolute lg:left-1/2 lg:-translate-x-1/2 md:flex-row"
             aria-label="Footer navigation"
           >
             {menuItems.map(({ href, title }) => {
               if (title === "Contact Me") {
-                return <ContactMeCta key={href + title} variant={"outline"} size={"lg"} asChild />;
+                return (
+                  <ContactMeCta
+                    key={href + title}
+                    size={"lg"}
+                    variant={"outline"}
+                    className="lg:px-3 lg:py-1.5 xl:px-6 xl:py-2"
+                    asChild
+                  />
+                );
               }
 
               return (
-                <Button key={href + title} variant={"ghost"} size={"lg"} asChild>
+                <Button
+                  key={href + title}
+                  size={"lg"}
+                  variant={"ghost"}
+                  className="lg:px-3 lg:py-1.5 xl:px-6 xl:py-2"
+                  asChild
+                >
                   <Link key={href + title} href={href}>
                     {title}
                   </Link>

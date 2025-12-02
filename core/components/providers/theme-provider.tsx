@@ -9,6 +9,7 @@ export function ThemeProvider({ children }: Readonly<PropsWithChildren>) {
       attribute={"class"}
       enableSystem
       defaultTheme={"dark"}
+      forcedTheme={"dark"}
       disableTransitionOnChange
     >
       {children}
