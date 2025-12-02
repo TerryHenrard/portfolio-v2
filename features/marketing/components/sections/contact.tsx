@@ -57,7 +57,7 @@ export function Contact() {
               href={item.href}
               target={item.external ? "_blank" : undefined}
               rel={item.external ? "noopener noreferrer" : undefined}
-              className="group flex items-center gap-4 p-4 rounded-2xl bg-muted/40 hover:bg-muted/60 transition-colors"
+              className="group flex items-center gap-4 p-4 rounded-4xl corner-squircle bg-muted/40 hover:bg-muted/60 transition-colors"
             >
               <div className="shrink-0 flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10">
                 <item.icon className="text-primary h-5 w-5" />
