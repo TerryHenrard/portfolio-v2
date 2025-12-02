@@ -32,7 +32,7 @@ const legalLinks = [
 
 export function Footer() {
   return (
-    <footer className="py-24 container mx-auto">
+    <footer className="py-24 container mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col gap-12 lg:gap-16">
         <div className="relative flex flex-col items-center gap-12 md:items-center md:justify-between lg:flex-row lg:gap-8">
           <Link href="/" aria-label="Go to homepage">
@@ -41,7 +41,7 @@ export function Footer() {
             </div>
           </Link>
           <nav
-            className="flex flex-col items-center gap-1 lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:flex-row"
+            className="flex flex-col items-center gap-1 lg:absolute lg:left-1/2 lg:-translate-x-1/2 md:flex-row"
             aria-label="Footer navigation"
           >
             {menuItems.map(({ href, title }) => {
