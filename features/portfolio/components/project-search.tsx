@@ -187,67 +187,71 @@ export default function ProjectSearch({ projects, tags }: { projects: Project[];
     <div className="w-full flex flex-col gap-8">
       <div className="max-w-3xl w-full mx-auto flex flex-col gap-4">
         <div className="relative">
-          <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-            <Search size={18} className="text-muted-foreground" />
-          </div>
-          <div className="flex items-center gap-3">
-            <Input
-              id="project-search-input"
-              type="text"
-              aria-label="Search projects"
-              placeholder="Search projects or type # to browse tags"
-              value={q ?? ""}
-              onChange={(e) => {
-                const value = e.target.value || null;
-                setQ(value);
-                const valueStr = (value ?? "").toString();
-                if (valueStr.trim().startsWith("#")) setShowSuggestions(true);
-              }}
-              onFocus={() => setShowSuggestions(true)}
-              onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  if (isTagQuery) {
-                    const exact = allTags.find((t) => t.toLowerCase() === tagQuery);
-                    if (exact) addTag(exact);
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <div className="relative flex-1">
+              <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                <Search size={18} className="text-muted-foreground" />
+              </div>
+              <Input
+                id="project-search-input"
+                type="text"
+                aria-label="Search projects"
+                placeholder="Search projects or type # to browse tags"
+                value={q ?? ""}
+                onChange={(e) => {
+                  const value = e.target.value || null;
+                  setQ(value);
+                  const valueStr = (value ?? "").toString();
+                  if (valueStr.trim().startsWith("#")) setShowSuggestions(true);
+                }}
+                onFocus={() => setShowSuggestions(true)}
+                onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    if (isTagQuery) {
+                      const exact = allTags.find((t) => t.toLowerCase() === tagQuery);
+                      if (exact) addTag(exact);
+                    }
+                    // for non-tag queries we allow the default behavior — nothing special here
                   }
-                  // for non-tag queries we allow the default behavior — nothing special here
+                  if (isTagQuery && showSuggestions && suggestions.length > 0) {
+                    if (e.key === "ArrowDown") {
+                      e.preventDefault();
+                      setActiveIndex((prev) => {
+                        if (prev === null) return 0;
+                        return (prev + 1) % suggestions.length;
+                      });
+                    }
+                    if (e.key === "ArrowUp") {
+                      e.preventDefault();
+                      setActiveIndex((prev) => {
+                        if (prev === null) return suggestions.length - 1;
+                        return (prev - 1 + suggestions.length) % suggestions.length;
+                      });
+                    }
+                    if (e.key === "Escape") {
+                      setShowSuggestions(false);
+                    }
+                    if (e.key === "Enter" && activeIndex !== null) {
+                      e.preventDefault();
+                      addTag(suggestions[activeIndex]);
+                    }
+                  }
+                }}
+                role="combobox"
+                aria-controls="tag-suggestion-list"
+                aria-expanded={showSuggestions}
+                aria-activedescendant={
+                  activeIndex !== null ? `tag-option-${activeIndex}` : undefined
                 }
-                if (isTagQuery && showSuggestions && suggestions.length > 0) {
-                  if (e.key === "ArrowDown") {
-                    e.preventDefault();
-                    setActiveIndex((prev) => {
-                      if (prev === null) return 0;
-                      return (prev + 1) % suggestions.length;
-                    });
-                  }
-                  if (e.key === "ArrowUp") {
-                    e.preventDefault();
-                    setActiveIndex((prev) => {
-                      if (prev === null) return suggestions.length - 1;
-                      return (prev - 1 + suggestions.length) % suggestions.length;
-                    });
-                  }
-                  if (e.key === "Escape") {
-                    setShowSuggestions(false);
-                  }
-                  if (e.key === "Enter" && activeIndex !== null) {
-                    e.preventDefault();
-                    addTag(suggestions[activeIndex]);
-                  }
-                }
-              }}
-              role="combobox"
-              aria-controls="tag-suggestion-list"
-              aria-expanded={showSuggestions}
-              aria-activedescendant={activeIndex !== null ? `tag-option-${activeIndex}` : undefined}
-              aria-autocomplete="list"
-              className="flex-1 pl-10 h-12.5 pr-3 py-3 rounded-4xl corner-squircle border border-input bg-background text-foreground placeholder:text-muted-foreground"
-            />
+                aria-autocomplete="list"
+                className="w-full pl-10 h-12.5 pr-3 py-3 rounded-4xl corner-squircle border border-input bg-background text-foreground placeholder:text-muted-foreground"
+              />
+            </div>
 
             <Select value={sortBy ?? "createdAt-desc"} onValueChange={(v) => setSortBy(v)}>
-              <SelectTrigger className="p-6 rounded-4xl corner-squircle cursor-pointer ">
-                <Filter size={18} className="mr-2 -ml-2 text-muted-foreground" />
+              <SelectTrigger className="py-6 px-4 rounded-4xl corner-squircle cursor-pointer sm:w-auto">
+                <Filter size={18} className="mr-2 text-muted-foreground" />
                 <SelectValue placeholder="Sort" />
               </SelectTrigger>
               <SelectContent className="rounded-4xl corner-squircle">
@@ -346,7 +350,7 @@ export default function ProjectSearch({ projects, tags }: { projects: Project[];
         </div>
       </div>
 
-      <div className="mx-auto grid grid-cols-1 gap-4 md:auto-rows-[28rem] md:grid-cols-3">
+      <div className="mx-auto grid grid-cols-1 gap-4 auto-rows-[28rem] md:grid-cols-3">
         {sortedProjects.map((project, index) => (
           <ProjectCard
             key={project.title}

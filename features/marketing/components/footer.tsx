@@ -1,6 +1,6 @@
 import { Button } from "@/core/components/ui/button";
 import { Copyright } from "@/core/components/ui/copyright";
-import { Linkedin, Mail, Phone } from "lucide-react";
+import { Github, Linkedin, Mail, Phone } from "lucide-react";
 import Link from "next/link";
 import { menuItems } from "../lib/menu-items";
 import { ContactMeCta } from "./contact-me-cta";
@@ -18,8 +18,14 @@ const socialLinks = [
   },
   {
     href: "https://www.linkedin.com/in/terry-henrard/",
-    label: "Join me on LinkedIn",
+    label: "Connect with me LinkedIn",
     Icon: Linkedin,
+    external: true,
+  },
+  {
+    href: "https://github.com/TerryHenrard",
+    label: "Join me on GitHub",
+    Icon: Github,
     external: true,
   },
 ];
@@ -46,11 +52,25 @@ export function Footer() {
           >
             {menuItems.map(({ href, title }) => {
               if (title === "Contact Me") {
-                return <ContactMeCta key={href + title} variant={"outline"} size={"lg"} asChild />;
+                return (
+                  <ContactMeCta
+                    key={href + title}
+                    size={"lg"}
+                    variant={"outline"}
+                    className="lg:px-3 lg:py-1.5 xl:px-6 xl:py-2"
+                    asChild
+                  />
+                );
               }
 
               return (
-                <Button key={href + title} variant={"ghost"} size={"lg"} asChild>
+                <Button
+                  key={href + title}
+                  size={"lg"}
+                  variant={"ghost"}
+                  className="lg:px-3 lg:py-1.5 xl:px-6 xl:py-2"
+                  asChild
+                >
                   <Link key={href + title} href={href}>
                     {title}
                   </Link>

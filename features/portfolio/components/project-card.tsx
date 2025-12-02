@@ -103,6 +103,7 @@ export function ProjectCard({
     <Link
       href={`/portfolio/${_meta.path}`}
       className={cn("block relative", className)}
+      target="_blank"
       style={{ cursor: isHovering ? "none" : "auto" }}
     >
       {/* Growing bubble effect - outside Card to avoid overflow-hidden clipping */}

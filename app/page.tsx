@@ -8,7 +8,7 @@ import { Testimonial } from "@/features/marketing/components/sections/testimonia
 
 export default function Home() {
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-20 md:pt-24 lg:pt-28">
+    <main className="container mx-auto px-4 sm:px-6 lg:px-8 pt-20 md:pt-24 lg:pt-28">
       <Hero />
       <FeaturedProjects />
       <About />
@@ -16,6 +16,6 @@ export default function Home() {
       <Contact />
       <Subscribe />
       <Faq />
-    </div>
+    </main>
   );
 }
