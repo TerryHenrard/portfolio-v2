@@ -1,8 +1,8 @@
 import { Badge } from "@/core/components/ui/badge";
-import { BentoGrid, BentoGridItem } from "@/core/components/ui/bento-grid";
+import { BentoGrid } from "@/core/components/ui/bento-grid";
 import { TypographyH2, TypographyLead } from "@/core/components/ui/typography";
+import { ProjectCard } from "@/features/portfolio/components/project-card";
 import { allProjects } from "content-collections";
-import Link from "next/link";
 
 const [one, two, three, four] = allProjects;
 const sortedProjects = [three, two, one, four]; // Ensure consistent order
@@ -20,13 +20,11 @@ export function Portfolio() {
       </div>
       <BentoGrid className="mx-auto max-w-none">
         {sortedProjects.map((project, index) => (
-          <Link
-            href={`/portfolio/${project._meta.path}`}
+          <ProjectCard
             key={project.title}
-            className={index === 0 || index === 3 ? "md:col-span-2" : "" + ""}
-          >
-            <BentoGridItem {...project} />
-          </Link>
+            className={index === 0 || index === 3 ? "md:col-span-2" : ""}
+            {...project}
+          />
         ))}
       </BentoGrid>
     </section>
