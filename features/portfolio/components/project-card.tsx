@@ -116,7 +116,9 @@ export function ProjectCard({
           width: 120,
           height: 120,
           transform: `translate(-50%, -50%) scale(${getBubbleScale()})`,
-          transition: "transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
+          transition: isHovering
+            ? "transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)"
+            : "transform 0.3s ease-out",
         }}
       >
         <span className="absolute inset-0 flex items-center justify-center text-sm font-medium">

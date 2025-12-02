@@ -25,15 +25,7 @@ export function Hero() {
           </div>
         </div>
         <div className="flex-1">
-          <Image
-            src={HeroImage}
-            alt="Hero Image"
-            width={712}
-            height={712}
-            fetchPriority="high"
-            preload
-            loading="eager"
-          />
+          <Image src={HeroImage} alt="Hero Image" fetchPriority="high" preload loading="eager" />
         </div>
       </div>
     </section>
