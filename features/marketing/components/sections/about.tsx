@@ -8,10 +8,15 @@ import { ViewProjectsCta } from "../view-projects-cta";
 
 export function About() {
   return (
-    <section className="border-b py-24 flex items-center justify-center gap-16" id="about">
-      <Image src={AboutImage} alt="About Me Image" width={712} height={712} />
+    <section
+      className="border-b py-16 md:py-24 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16"
+      id="about"
+    >
+      <div className="flex-1">
+        <Image src={AboutImage} alt="About Me Image" />
+      </div>
 
-      <div className="flex flex-col items-start gap-5">
+      <div className="flex flex-col flex-1 items-center md:items-start text-center md:text-left gap-5">
         <Badge className="tracking-widest">ABOUT</Badge>
         <TypographyH2>Developer who loves to build stuff</TypographyH2>
         <TypographyLead className="text-base">

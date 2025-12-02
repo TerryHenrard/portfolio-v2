@@ -47,9 +47,7 @@ export function DesktopNavigationMenu() {
             return (
               <NavigationMenuItem key={item.title}>
                 <NavigationMenuTrigger className={"bg-transparent"}>
-                  <Link className="bg-transparent" href={item.href}>
-                    {item.title}
-                  </Link>
+                  {item.title}
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid gap-2 md:w-[400px] lg:w-[635px] lg:grid-cols-[.75fr_1fr_1fr]">

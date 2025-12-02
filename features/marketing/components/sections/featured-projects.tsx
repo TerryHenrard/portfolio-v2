@@ -7,11 +7,11 @@ import { allProjects } from "content-collections";
 const [one, two, three, four] = allProjects;
 const sortedProjects = [three, two, one, four]; // Ensure consistent order
 
-export function Portfolio() {
+export function FeaturedProjects() {
   return (
     <section className="py-24 border-b text-center flex flex-col gap-9.5" id="portfolio">
       <div className="max-w-xl m-auto flex flex-col gap-5">
-        <Badge className="m-auto tracking-widest">PORTFOLIO</Badge>
+        <Badge className="m-auto tracking-widest">FEATURED PROJECTS</Badge>
         <TypographyH2>Discover what I've created</TypographyH2>
         <TypographyLead className="text-base">
           Each piece reflects my passion for innovation and commitment to delivering high-quality

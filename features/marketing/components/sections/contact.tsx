@@ -1,8 +1,35 @@
 import { Badge } from "@/core/components/ui/badge";
-import { Card, CardContent } from "@/core/components/ui/card";
-import { Separator } from "@/core/components/ui/separator";
 import { TypographyH2, TypographyLead } from "@/core/components/ui/typography";
-import { Linkedin, Mail, Phone } from "lucide-react";
+import { Github, Linkedin, Mail, Phone } from "lucide-react";
+
+const contactItems = [
+  {
+    icon: Phone,
+    label: "Call me",
+    value: "+32 498 14 66 51",
+    href: "tel:+32498146651",
+  },
+  {
+    icon: Mail,
+    label: "Write an email",
+    value: "terry.henrard@outlook.com",
+    href: "mailto:terry.henrard@outlook.com",
+  },
+  {
+    icon: Linkedin,
+    label: "LinkedIn",
+    value: "terry-henrard",
+    href: "https://www.linkedin.com/in/terry-henrard/",
+    external: true,
+  },
+  {
+    icon: Github,
+    label: "GitHub",
+    value: "TerryHenrard",
+    href: "https://github.com/TerryHenrard",
+    external: true,
+  },
+];
 
 export function Contact() {
   return (
@@ -11,70 +38,41 @@ export function Contact() {
       aria-labelledby="contact-heading"
       id="contact"
     >
-      <div className="container mx-auto flex flex-col items-center gap-8 lg:flex-row lg:items-start lg:gap-12">
-        <div className="flex flex-1 flex-col items-center md:items-start gap-5 text-center md:text-left">
+      <div className="container mx-auto flex flex-col lg:flex-row lg:items-start lg:justify-between gap-10 lg:gap-16">
+        {/* Header */}
+        <div className="flex flex-col items-center md:items-start gap-5 text-center md:text-left lg:flex-1">
           <Badge className="tracking-widest">CONTACT ME</Badge>
           <TypographyH2 id="contact-heading">Let's talk!</TypographyH2>
-          <TypographyLead className="text-base">
+          <TypographyLead className="text-base max-w-xl">
             Feel free to reach out! I'm here to help and will respond within 24 hours. Your
             questions matter to me!
           </TypographyLead>
         </div>
 
-        <Separator className="block md:hidden" />
-
-        <Card className="w-full md:bg-muted/40 flex-1 md:p-6 gap-6 md:gap-8 corner-squircle rounded-4xl">
-          <CardContent>
-            <div className="flex flex-col gap-8">
-              <a
-                href="tel:+32498146651"
-                className="flex cursor-pointer flex-col items-center gap-5 md:flex-row md:items-start"
-              >
-                <Phone className="text-primary h-6 w-6" />
-                <div className="flex flex-col gap-2 text-center md:text-left">
-                  <h3 className="text-card-foreground text-base leading-6 font-semibold font-mono">
-                    Call me
-                  </h3>
-                  <span className="text-muted-foreground text-base underline decoration-1 underline-offset-6 hover:text-primary">
-                    +32 498 14 66 51
-                  </span>
-                </div>
-              </a>
-
-              <a
-                href="mailto:terry.henrard@outlook.com"
-                className="flex cursor-pointer flex-col items-center gap-5 md:flex-row md:items-start"
-              >
-                <Mail className="text-primary h-6 w-6" />
-                <div className="flex flex-col gap-2 text-center md:text-left">
-                  <h3 className="text-card-foreground text-base leading-6 font-semibold font-mono">
-                    Write an email
-                  </h3>
-                  <span className="text-muted-foreground text-base underline decoration-1 underline-offset-6 hover:text-primary">
-                    terry.henrard@outlook.com
-                  </span>
-                </div>
-              </a>
-
-              <a
-                href="https://www.linkedin.com/in/terry-henrard/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex cursor-pointer flex-col items-center gap-5 md:flex-row md:items-start"
-              >
-                <Linkedin className="text-primary h-6 w-6" />
-                <div className="flex flex-col gap-2 text-center md:text-left">
-                  <h3 className="text-card-foreground text-base leading-6 font-semibold font-mono">
-                    Join me on LinkedIn
-                  </h3>
-                  <span className="text-muted-foreground text-base underline decoration-1 underline-offset-6 hover:text-primary">
-                    https://www.linkedin.com/in/terry-henrard/
-                  </span>
-                </div>
-              </a>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Contact Grid - Right Side */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:flex-1">
+          {contactItems.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              target={item.external ? "_blank" : undefined}
+              rel={item.external ? "noopener noreferrer" : undefined}
+              className="group flex items-center gap-4 p-4 rounded-2xl bg-muted/40 hover:bg-muted/60 transition-colors"
+            >
+              <div className="shrink-0 flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10">
+                <item.icon className="text-primary h-5 w-5" />
+              </div>
+              <div className="flex flex-col min-w-0">
+                <span className="text-muted-foreground text-xs font-medium uppercase tracking-wide">
+                  {item.label}
+                </span>
+                <span className="text-foreground text-sm font-medium truncate group-hover:text-primary transition-colors">
+                  {item.value}
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
       </div>
     </section>
   );
