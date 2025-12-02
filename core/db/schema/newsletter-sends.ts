@@ -1,5 +1,7 @@
 import { relations } from "drizzle-orm";
 import { integer, pgEnum, pgTable, timestamp, uuid } from "drizzle-orm/pg-core";
+import { createInsertSchema, createSelectSchema, createUpdateSchema } from "drizzle-zod";
+import { z } from "zod";
 import { newsletterDrafts } from "./newsletter-drafts";
 
 export const sendStatusEnum = pgEnum("send_status", [
@@ -32,3 +34,10 @@ export const newsletterSendsRelations = relations(newsletterSends, ({ one }) => 
 
 export type InsertNewsletterSend = typeof newsletterSends.$inferInsert;
 export type SelectNewsletterSend = typeof newsletterSends.$inferSelect;
+
+// Validation schemas
+export const selectNewsletterSendSchema = createSelectSchema(newsletterSends);
+export const insertNewsletterSendSchema = createInsertSchema(newsletterSends);
+export const updateNewsletterSendSchema = createUpdateSchema(newsletterSends);
+export const sendStatusEnumSchema = createSelectSchema(sendStatusEnum);
+export type SendStatus = z.infer<typeof sendStatusEnumSchema>;

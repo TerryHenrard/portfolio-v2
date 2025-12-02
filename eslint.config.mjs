@@ -1,5 +1,6 @@
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
+import drizzle from "eslint-plugin-drizzle";
 import { defineConfig, globalIgnores } from "eslint/config";
 
 const eslintConfig = defineConfig([
@@ -15,9 +16,14 @@ const eslintConfig = defineConfig([
     ".content-collections/**",
   ]),
   {
+    plugins: {
+      drizzle,
+    },
     rules: {
       'react/no-unescaped-entities': 'off',
-    }
+      'drizzle/enforce-delete-with-where': "error",
+      'drizzle/enforce-update-with-where': "error"
+    },
   },
 ]);
 

@@ -1,6 +1,7 @@
 import { relations } from "drizzle-orm";
 import { index, pgTable, text, timestamp } from "drizzle-orm/pg-core";
-import { users } from "./users";
+import { createInsertSchema, createSelectSchema, createUpdateSchema } from "drizzle-zod";
+import { admins } from "./admins";
 
 export const accounts = pgTable(
   "accounts",
@@ -8,9 +9,9 @@ export const accounts = pgTable(
     id: text("id").primaryKey(),
     accountId: text("account_id").notNull(),
     providerId: text("provider_id").notNull(),
-    userId: text("user_id")
+    adminId: text("admin_id")
       .notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
+      .references(() => admins.id, { onDelete: "cascade" }),
     accessToken: text("access_token"),
     refreshToken: text("refresh_token"),
     idToken: text("id_token"),
@@ -23,15 +24,24 @@ export const accounts = pgTable(
       .$onUpdate(() => new Date())
       .notNull(),
   },
-  (table) => [index("accounts_userId_idx").on(table.userId)]
+  (table) => [index("accounts_adminId_idx").on(table.adminId)]
 );
 
 export const accountsRelations = relations(accounts, ({ one }) => ({
-  user: one(users, {
-    fields: [accounts.userId],
-    references: [users.id],
+  admin: one(admins, {
+    fields: [accounts.adminId],
+    references: [admins.id],
   }),
 }));
 
 export type InsertAccount = typeof accounts.$inferInsert;
 export type SelectAccount = typeof accounts.$inferSelect;
+
+// Validation schemas
+export const selectAccountSchema = createSelectSchema(accounts);
+export const insertAccountSchema = createInsertSchema(accounts, {
+  accountId: (schema) => schema.min(1),
+  providerId: (schema) => schema.min(1),
+  adminId: (schema) => schema.min(1),
+});
+export const updateAccountSchema = createUpdateSchema(accounts);

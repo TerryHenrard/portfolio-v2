@@ -1,4 +1,5 @@
 import { index, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { createInsertSchema, createSelectSchema, createUpdateSchema } from "drizzle-zod";
 
 export const verifications = pgTable(
   "verifications",
@@ -18,3 +19,11 @@ export const verifications = pgTable(
 
 export type InsertVerification = typeof verifications.$inferInsert;
 export type SelectVerification = typeof verifications.$inferSelect;
+
+// Validation schemas
+export const selectVerificationSchema = createSelectSchema(verifications);
+export const insertVerificationSchema = createInsertSchema(verifications, {
+  identifier: (schema) => schema.min(1),
+  value: (schema) => schema.min(1),
+});
+export const updateVerificationSchema = createUpdateSchema(verifications);

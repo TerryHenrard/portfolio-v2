@@ -1,7 +1,7 @@
-export * from "./accounts";
-export * from "./newsletter-drafts";
-export * from "./newsletter-sends";
-export * from "./newsletter-subscribers";
-export * from "./sessions";
-export * from "./users";
-export * from "./verifications";
+export { accounts } from "./accounts";
+export { admins } from "./admins";
+export { newsletterDrafts } from "./newsletter-drafts";
+export { newsletterSends } from "./newsletter-sends";
+export { newsletterSubscribers } from "./newsletter-subscribers";
+export { sessions } from "./sessions";
+export { verifications } from "./verifications";

@@ -1,6 +1,7 @@
 import { relations } from "drizzle-orm";
 import { index, pgTable, text, timestamp } from "drizzle-orm/pg-core";
-import { users } from "./users";
+import { createInsertSchema, createSelectSchema, createUpdateSchema } from "drizzle-zod";
+import { admins } from "./admins";
 
 export const sessions = pgTable(
   "sessions",
@@ -14,19 +15,27 @@ export const sessions = pgTable(
       .notNull(),
     ipAddress: text("ip_address"),
     userAgent: text("user_agent"),
-    userId: text("user_id")
+    adminId: text("admin_id")
       .notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
+      .references(() => admins.id, { onDelete: "cascade" }),
   },
-  (table) => [index("sessions_userId_idx").on(table.userId)]
+  (table) => [index("sessions_adminId_idx").on(table.adminId)]
 );
 
 export const sessionsRelations = relations(sessions, ({ one }) => ({
-  user: one(users, {
-    fields: [sessions.userId],
-    references: [users.id],
+  admin: one(admins, {
+    fields: [sessions.adminId],
+    references: [admins.id],
   }),
 }));
 
 export type InsertSession = typeof sessions.$inferInsert;
 export type SelectSession = typeof sessions.$inferSelect;
+
+// Validation schemas
+export const selectSessionSchema = createSelectSchema(sessions);
+export const insertSessionSchema = createInsertSchema(sessions, {
+  token: (schema) => schema.min(1),
+  adminId: (schema) => schema.min(1),
+});
+export const updateSessionSchema = createUpdateSchema(sessions);
