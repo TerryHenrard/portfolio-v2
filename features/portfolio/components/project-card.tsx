@@ -69,7 +69,24 @@ export function ProjectCard({
     if (!isHovering) return;
 
     const handleScroll = () => {
-      updateBubblePosition();
+      if (!cardRef.current) return;
+      const rect = cardRef.current.getBoundingClientRect();
+      const { clientX, clientY } = mousePositionRef.current;
+
+      // Check if mouse is still inside the card bounds after scroll
+      const isInsideCard =
+        clientX >= rect.left &&
+        clientX <= rect.right &&
+        clientY >= rect.top &&
+        clientY <= rect.bottom;
+
+      if (isInsideCard) {
+        updateBubblePosition();
+      } else {
+        // Mouse is outside the card after scroll, hide the bubble
+        setIsHovering(false);
+        setIsPressed(false);
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -83,34 +100,40 @@ export function ProjectCard({
   };
 
   return (
-    <Link href={`/portfolio/${_meta.path}`} className={cn("block cursor-none", className)}>
+    <Link
+      href={`/portfolio/${_meta.path}`}
+      className={cn("block relative", className)}
+      style={{ cursor: isHovering ? "none" : "auto" }}
+    >
+      {/* Growing bubble effect - outside Card to avoid overflow-hidden clipping */}
+      <div
+        className={cn(
+          "pointer-events-none absolute z-30 rounded-full bg-primary/20 backdrop-blur-sm"
+        )}
+        style={{
+          left: bubblePosition.x,
+          top: bubblePosition.y,
+          width: 120,
+          height: 120,
+          transform: `translate(-50%, -50%) scale(${getBubbleScale()})`,
+          transition: "transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
+        }}
+      >
+        <span className="absolute inset-0 flex items-center justify-center text-sm font-medium">
+          View
+        </span>
+      </div>
+
       <Card
         ref={cardRef}
-        className="h-full p-0 overflow-hidden relative group cursor-none"
+        className="h-full p-0 overflow-hidden relative group"
+        style={{ cursor: isHovering ? "none" : "auto" }}
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
       >
-        {/* Growing bubble effect */}
-        <div
-          className={cn(
-            "pointer-events-none absolute z-20 rounded-full bg-primary/20 backdrop-blur-sm transition-transform duration-300 ease-out"
-          )}
-          style={{
-            left: bubblePosition.x,
-            top: bubblePosition.y,
-            width: 120,
-            height: 120,
-            transform: `translate(-50%, -50%) scale(${getBubbleScale()})`,
-          }}
-        >
-          <span className="absolute inset-0 flex items-center justify-center text-sm font-medium">
-            View
-          </span>
-        </div>
-
         <CardContent className="px-6 flex flex-col gap-2 pt-6 pb-4 text-left z-10 bg-card/70 backdrop-blur-sm group-hover:opacity-0 opacity-100 transition-all duration-300 group-hover:-translate-y-10">
           <h3 className="text-foreground text-lg font-semibold font-mono flex justify-between flex-wrap">
             {title}
