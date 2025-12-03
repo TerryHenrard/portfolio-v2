@@ -1,7 +1,7 @@
 import { relations } from "drizzle-orm";
 import { index, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 import { createInsertSchema, createSelectSchema, createUpdateSchema } from "drizzle-zod";
-import { admins } from "./admins";
+import { users } from "./users";
 
 export const sessions = pgTable(
   "sessions",
@@ -15,17 +15,19 @@ export const sessions = pgTable(
       .notNull(),
     ipAddress: text("ip_address"),
     userAgent: text("user_agent"),
-    adminId: text("admin_id")
+    userId: text("user_id")
       .notNull()
-      .references(() => admins.id, { onDelete: "cascade" }),
+      .references(() => users.id, { onDelete: "cascade" }),
+    // Admin plugin fields
+    impersonatedBy: text("impersonated_by"),
   },
-  (table) => [index("sessions_adminId_idx").on(table.adminId)]
+  (table) => [index("sessions_userId_idx").on(table.userId)]
 );
 
 export const sessionsRelations = relations(sessions, ({ one }) => ({
-  admin: one(admins, {
-    fields: [sessions.adminId],
-    references: [admins.id],
+  user: one(users, {
+    fields: [sessions.userId],
+    references: [users.id],
   }),
 }));
 
@@ -36,6 +38,6 @@ export type SelectSession = typeof sessions.$inferSelect;
 export const selectSessionSchema = createSelectSchema(sessions);
 export const insertSessionSchema = createInsertSchema(sessions, {
   token: (schema) => schema.min(1),
-  adminId: (schema) => schema.min(1),
+  userId: (schema) => schema.min(1),
 });
 export const updateSessionSchema = createUpdateSchema(sessions);

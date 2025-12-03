@@ -1,5 +1,9 @@
 import { createEnv } from "@t3-oss/env-nextjs";
+import { config } from "dotenv";
 import { z } from "zod";
+
+// Load .env.local for CLI tools (Next.js loads this automatically at runtime)
+config({ path: ".env.local" });
 
 export const serverEnv = createEnv({
   server: {

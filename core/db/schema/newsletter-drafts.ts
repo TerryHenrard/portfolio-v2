@@ -2,8 +2,8 @@ import { relations } from "drizzle-orm";
 import { pgEnum, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 import { createInsertSchema, createSelectSchema, createUpdateSchema } from "drizzle-zod";
 import { z } from "zod";
-import { admins } from "./admins";
 import { newsletterSends } from "./newsletter-sends";
+import { users } from "./users";
 
 export const draftStatusEnum = pgEnum("draft_status", [
   "needs_review",
@@ -18,7 +18,7 @@ export const newsletterDrafts = pgTable("newsletter_drafts", {
   content: text("content").notNull(),
   status: draftStatusEnum("status").notNull().default("needs_review"),
   aiVersion: text("ai_version"),
-  reviewerId: text("reviewer_id").references(() => admins.id, {
+  reviewerId: text("reviewer_id").references(() => users.id, {
     onDelete: "set null",
   }),
   reviewedAt: timestamp("reviewed_at"),
@@ -30,9 +30,9 @@ export const newsletterDrafts = pgTable("newsletter_drafts", {
 });
 
 export const newsletterDraftsRelations = relations(newsletterDrafts, ({ one, many }) => ({
-  reviewer: one(admins, {
+  reviewer: one(users, {
     fields: [newsletterDrafts.reviewerId],
-    references: [admins.id],
+    references: [users.id],
   }),
   sends: many(newsletterSends),
 }));

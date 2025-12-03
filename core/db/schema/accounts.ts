@@ -1,7 +1,7 @@
 import { relations } from "drizzle-orm";
 import { index, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 import { createInsertSchema, createSelectSchema, createUpdateSchema } from "drizzle-zod";
-import { admins } from "./admins";
+import { users } from "./users";
 
 export const accounts = pgTable(
   "accounts",
@@ -9,9 +9,9 @@ export const accounts = pgTable(
     id: text("id").primaryKey(),
     accountId: text("account_id").notNull(),
     providerId: text("provider_id").notNull(),
-    adminId: text("admin_id")
+    userId: text("user_id")
       .notNull()
-      .references(() => admins.id, { onDelete: "cascade" }),
+      .references(() => users.id, { onDelete: "cascade" }),
     accessToken: text("access_token"),
     refreshToken: text("refresh_token"),
     idToken: text("id_token"),
@@ -24,13 +24,13 @@ export const accounts = pgTable(
       .$onUpdate(() => new Date())
       .notNull(),
   },
-  (table) => [index("accounts_adminId_idx").on(table.adminId)]
+  (table) => [index("accounts_userId_idx").on(table.userId)]
 );
 
 export const accountsRelations = relations(accounts, ({ one }) => ({
-  admin: one(admins, {
-    fields: [accounts.adminId],
-    references: [admins.id],
+  user: one(users, {
+    fields: [accounts.userId],
+    references: [users.id],
   }),
 }));
 
@@ -42,6 +42,6 @@ export const selectAccountSchema = createSelectSchema(accounts);
 export const insertAccountSchema = createInsertSchema(accounts, {
   accountId: (schema) => schema.min(1),
   providerId: (schema) => schema.min(1),
-  adminId: (schema) => schema.min(1),
+  userId: (schema) => schema.min(1),
 });
 export const updateAccountSchema = createUpdateSchema(accounts);
