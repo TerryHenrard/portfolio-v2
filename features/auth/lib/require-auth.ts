@@ -1,5 +1,6 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import "server-only";
 import { auth } from "./auth";
 
 export async function requireAuth() {
@@ -10,4 +11,6 @@ export async function requireAuth() {
   if (!session) {
     redirect("/sign-in");
   }
+
+  return session;
 }
