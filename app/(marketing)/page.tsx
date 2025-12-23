@@ -3,7 +3,6 @@ import { Contact } from "@/features/marketing/components/sections/contact";
 import { Faq } from "@/features/marketing/components/sections/faq";
 import { FeaturedProjects } from "@/features/marketing/components/sections/featured-projects";
 import { Hero } from "@/features/marketing/components/sections/hero";
-import Subscribe from "@/features/marketing/components/sections/subscribe";
 import { Testimonial } from "@/features/marketing/components/sections/testimonial";
 import type { Metadata } from "next";
 
@@ -24,7 +23,6 @@ export default function Home() {
       <About />
       <Testimonial />
       <Contact />
-      <Subscribe />
       <Faq />
     </main>
   );
