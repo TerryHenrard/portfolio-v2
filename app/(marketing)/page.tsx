@@ -5,6 +5,16 @@ import { FeaturedProjects } from "@/features/marketing/components/sections/featu
 import { Hero } from "@/features/marketing/components/sections/hero";
 import Subscribe from "@/features/marketing/components/sections/subscribe";
 import { Testimonial } from "@/features/marketing/components/sections/testimonial";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Home",
+  description:
+    "AI Engineer & Full-Stack Developer specialized in building intelligent web applications with AI, Next.js, React, and TypeScript. View my portfolio and get in touch.",
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export default function Home() {
   return (
