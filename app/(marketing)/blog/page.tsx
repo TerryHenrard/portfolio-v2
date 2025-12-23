@@ -1,5 +1,20 @@
 import { TypographyH1, TypographyLead } from "@/core/components/ui/typography";
 import { BlogCard } from "@/features/blog/components/blog-card";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Blog",
+  description:
+    "Articles, tutorials, and thoughts on AI, web development, Next.js, React, TypeScript, and modern software engineering.",
+  openGraph: {
+    title: "Blog | Terry Henrard",
+    description:
+      "Articles, tutorials, and thoughts on AI, web development, Next.js, React, TypeScript, and modern software engineering.",
+  },
+  alternates: {
+    canonical: "/blog",
+  },
+};
 
 const BLOG_POSTS = [
   {

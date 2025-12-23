@@ -5,6 +5,7 @@ import { ViewProjectsCta } from "@/features/marketing/components/view-projects-c
 import ContentBadges from "@/features/portfolio/components/content-badges";
 import { ProjectCard } from "@/features/portfolio/components/project-card";
 import { allProjects } from "content-collections";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 export const dynamicParams = false;
@@ -15,6 +16,51 @@ export function generateStaticParams() {
 
 interface PortfolioProps {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({ params }: PortfolioProps): Promise<Metadata> {
+  const { slug } = await params;
+  const project = allProjects.find((project) => project._meta.path === slug);
+
+  if (!project) {
+    return {
+      title: "Project Not Found",
+    };
+  }
+
+  return {
+    title: project.title,
+    description: project.description,
+    keywords: project.tags,
+    authors: [{ name: project.author }],
+    openGraph: {
+      type: "article",
+      title: project.title,
+      description: project.description,
+      publishedTime: project.createdAt,
+      modifiedTime: project.updatedAt,
+      authors: [project.author],
+      images: project.coverImagePath
+        ? [
+            {
+              url: project.coverImagePath,
+              width: 1200,
+              height: 630,
+              alt: project.coverImageAlt ?? project.title,
+            },
+          ]
+        : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: project.title,
+      description: project.description,
+      images: project.coverImagePath ? [project.coverImagePath] : undefined,
+    },
+    alternates: {
+      canonical: `/portfolio/${slug}`,
+    },
+  };
 }
 
 export default async function Portfolio({ params }: PortfolioProps) {

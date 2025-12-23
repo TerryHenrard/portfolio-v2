@@ -3,8 +3,23 @@ import { TypographyH2, TypographyLead } from "@/core/components/ui/typography";
 import { SubscribeForm } from "@/features/marketing/components/subscribe-form";
 import ProjectSearch from "@/features/portfolio/components/project-search";
 import { allProjects } from "content-collections";
+import type { Metadata } from "next";
 
 export const dynamic = "force-static";
+
+export const metadata: Metadata = {
+  title: "Portfolio",
+  description:
+    "Discover all my AI and web development projects. Intelligent applications built with AI, Next.js, React, TypeScript, and modern technologies.",
+  openGraph: {
+    title: "Portfolio | Terry Henrard",
+    description:
+      "Discover all my AI and web development projects. Intelligent applications built with AI, Next.js, React, TypeScript, and modern technologies.",
+  },
+  alternates: {
+    canonical: "/portfolio",
+  },
+};
 
 export default function PortfolioPage() {
   const projects = allProjects;
