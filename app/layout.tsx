@@ -3,8 +3,6 @@ import type { Metadata } from "next";
 import { Dancing_Script, Geist, Geist_Mono } from "next/font/google";
 import { PropsWithChildren } from "react";
 
-import { Footer } from "@/features/marketing/components/footer";
-import { Header } from "@/features/marketing/components/header";
 import "@vidstack/react/player/styles/base.css";
 import "./globals.css";
 
@@ -23,11 +21,7 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
       <body
         className={`${geist.className} ${geistMono.variable} ${dancingScript.variable} antialiased`}
       >
-        <Providers>
-          <Header />
-          {children}
-          <Footer />
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
