@@ -8,7 +8,7 @@ import { Handwritted } from "./handwritted";
 import { MobileNavigationMenu } from "./mobile-navigation-menu";
 
 export function Header() {
-  const scrolled = useScrolled(50);
+  const scrolled = useScrolled(150);
 
   return (
     <header

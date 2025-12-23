@@ -11,12 +11,15 @@
     "handwritted",
     "Handwritted",
     "henrard",
+    "HITL",
     "michel",
+    "neondb",
     "nuqs",
     "Nuqs",
     "oklch",
     "piron",
     "Piron",
+    "postgresql",
     "qdrant",
     "Rerank",
     "reranked",
@@ -39,5 +42,15 @@
     "zmin"
   ],
   "typescript.tsdk": "node_modules\\typescript\\lib",
-  "cSpell.language": "en,fr"
+  "cSpell.language": "en,fr",
+  "cSpell.ignorePaths": [
+    "package-lock.json",
+    "node_modules",
+    "vscode-extension",
+    ".git/{info,lfs,logs,refs,objects}/**",
+    ".git/{index,*refs,*HEAD}",
+    ".vscode",
+    ".vscode-insiders",
+    ".env*"
+  ]
 }
