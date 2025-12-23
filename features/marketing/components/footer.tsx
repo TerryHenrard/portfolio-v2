@@ -1,5 +1,6 @@
 import { Button } from "@/core/components/ui/button";
 import { Copyright } from "@/core/components/ui/copyright";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/core/components/ui/tooltip";
 import { Github, Linkedin, Mail, Phone } from "lucide-react";
 import Link from "next/link";
 import { menuItems } from "../lib/menu-items";
@@ -12,13 +13,13 @@ const socialLinks = [
   { href: "tel:+32498146651", label: "Call me", Icon: Phone, external: false },
   {
     href: "mailto:terry.henrard@outlook.com",
-    label: "Write an email",
+    label: "Write me an email",
     Icon: Mail,
     external: false,
   },
   {
     href: "https://www.linkedin.com/in/terry-henrard/",
-    label: "Connect with me LinkedIn",
+    label: "Connect with me on LinkedIn",
     Icon: Linkedin,
     external: true,
   },
@@ -80,25 +81,28 @@ export function Footer() {
           </nav>
           <div className="flex justify-center gap-1" aria-label="Social media links">
             {socialLinks.map(({ href, label, Icon, external }) => (
-              <Button
-                key={label}
-                variant="ghost"
-                size="icon-lg"
-                className="rounded-4xl corner-squircle"
-                asChild
-                aria-label={label}
-              >
-                <Link
-                  key={label}
-                  className="transition-all duration-300 hover:scale-110"
-                  aria-label={label}
-                  href={href}
-                  target={external ? "_blank" : undefined}
-                  rel={external ? "noopener noreferrer" : undefined}
-                >
-                  <Icon className="size-6" />
-                </Link>
-              </Button>
+              <Tooltip key={label}>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon-lg"
+                    className="rounded-4xl corner-squircle"
+                    asChild
+                    aria-label={label}
+                  >
+                    <Link
+                      className="transition-all duration-300 hover:scale-110"
+                      aria-label={label}
+                      href={href}
+                      target={external ? "_blank" : undefined}
+                      rel={external ? "noopener noreferrer" : undefined}
+                    >
+                      <Icon className="size-6" />
+                    </Link>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>{label}</TooltipContent>
+              </Tooltip>
             ))}
             <DownloadCvCta iconOnly />
           </div>
