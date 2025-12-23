@@ -5,7 +5,7 @@ import { Input } from "@/core/components/ui/input";
 import { Label } from "@/core/components/ui/label";
 import { cn } from "@/core/lib/utils";
 import { Loader2 } from "lucide-react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { authClient } from "../lib/auth-client";
 
@@ -14,6 +14,7 @@ export function SignInForm({ className }: { className?: string }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -32,8 +33,10 @@ export function SignInForm({ className }: { className?: string }) {
         return;
       }
 
-      redirect("/admin");
-    } catch {
+      router.push("/admin");
+    } catch (error) {
+      console.log("=====", error);
+
       setError("An unexpected error occurred. Please try again.");
     } finally {
       setIsLoading(false);

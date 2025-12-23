@@ -2,7 +2,7 @@
 
 import { Button, ShadcnButtonProps } from "@/core/components/ui/button";
 import { LogOut } from "lucide-react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { authClient } from "../lib/auth-client";
 
@@ -11,6 +11,7 @@ export function SignOutButton({
   size = "default",
   className,
 }: Pick<ShadcnButtonProps, "variant" | "size" | "className">) {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   async function handleSignOut() {
@@ -18,7 +19,7 @@ export function SignOutButton({
 
     try {
       await authClient.signOut();
-      redirect("/sign-in");
+      router.push("/sign-in");
     } catch (error) {
       console.error("Sign out error:", error);
     } finally {
