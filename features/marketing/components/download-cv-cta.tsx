@@ -28,13 +28,13 @@ export function DownloadCvCta({
               href="/documents/cv-2025-en-fr.pdf"
               download
               className="transition-all duration-300 hover:scale-110"
-              aria-label="Download CV"
+              aria-label="Download my CV"
             >
               <FileDown className="size-6" />
             </a>
           </Button>
         </TooltipTrigger>
-        <TooltipContent>Download CV</TooltipContent>
+        <TooltipContent>Download my CV</TooltipContent>
       </Tooltip>
     );
   }
