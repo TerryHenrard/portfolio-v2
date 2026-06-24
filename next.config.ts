@@ -22,7 +22,7 @@ const nextConfig: NextConfig = {
 				has: [
 					{
 						type: "host",
-						value: "terry-henrard.dev",
+						value: "(www\\.)?terry-henrard\\.dev",
 					},
 				],
 				destination: "https://henrard.ai/:path*",
